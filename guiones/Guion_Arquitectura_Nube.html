@@ -5,21 +5,814 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guion — Arquitectura en la Nube</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles_guiones.css">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #1e2d45;
+  --blue: #3b82f6;
+  --blue-dim: #1d4ed8;
+  --cyan: #06b6d4;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #475569;
+  --e1: #3b82f6;
+  --e2: #06b6d4;
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+}
+
+.site-header {
+  text-align: center;
+  padding: 60px 20px 50px;
+  position: relative;
+}
+
+.site-header::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), var(--cyan), transparent);
+  margin: 32px auto 0;
+}
+
+.header-tag {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.header-title {
+  font-family: var(--mono);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.header-title .accent { color: var(--blue); }
+
+.header-sub {
+  margin-top: 14px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+.header-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-chip {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-dim);
+  background: var(--surface);
+  letter-spacing: 0.08em;
+}
+
+.meta-chip.blue { border-color: var(--blue); color: var(--blue); }
+.meta-chip.cyan { border-color: var(--cyan); color: var(--cyan); }
+.meta-chip.green { border-color: var(--green); color: var(--green); }
+
+/* NEW SLIDES BADGE */
+.meta-chip.new { border-color: var(--amber); color: var(--amber); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+.legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 8px 0 40px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot-e1 { background: var(--e1); box-shadow: 0 0 8px var(--e1); }
+.dot-e2 { background: var(--e2); box-shadow: 0 0 8px var(--e2); }
+.dot-note { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.dot-new { background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+.slide-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10,14,26,0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-btn {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-btn:hover { border-color: var(--blue); color: var(--blue); }
+.nav-btn.active { background: var(--blue-dim); border-color: var(--blue); color: white; }
+
+.slide-block {
+  margin-bottom: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+
+.slide-block:hover { border-color: #2a3d5e; }
+.slide-block.hidden { display: none; }
+
+/* NEW SLIDE HIGHLIGHT */
+.slide-block.is-new { border-color: rgba(16,185,129,0.4); }
+.slide-block.is-new .slide-header { background: rgba(16,185,129,0.06); }
+
+.slide-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--surface);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.slide-header:hover { background: var(--surface2); }
+
+.slide-number {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.slide-number.new-num {
+  color: var(--green);
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.4);
+}
+
+.new-badge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  background: var(--green);
+  color: #000;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.slide-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.slide-toggle {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: transform 0.3s;
+}
+
+.slide-block.open .slide-toggle { transform: rotate(180deg); }
+
+.slide-body {
+  display: none;
+  background: var(--bg);
+  padding: 0;
+}
+
+.slide-block.open .slide-body { display: block; }
+
+.turn {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.turn-badge {
+  width: 54px;
+  min-height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 20px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.turn-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  right: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.badge-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  padding: 8px 0;
+}
+
+.turn.e1 .badge-label { color: var(--e1); }
+.turn.e2 .badge-label { color: var(--e2); }
+.turn.note .badge-label { color: var(--amber); }
+
+.turn.e1 .turn-badge { background: rgba(59,130,246,0.04); }
+.turn.e2 .turn-badge { background: rgba(6,182,212,0.04); }
+.turn.note .turn-badge { background: rgba(245,158,11,0.04); }
+
+.turn-content { flex: 1; padding: 20px 24px; }
+
+.stage-dir {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--amber);
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stage-dir::before { content: '▶'; font-size: 0.6rem; }
+
+.speech { color: var(--text); font-size: 0.95rem; line-height: 1.8; }
+.speech strong { color: var(--cyan); font-weight: 700; }
+.speech em { color: var(--text-dim); font-style: italic; }
+
+.stat-box {
+  display: inline-block;
+  margin: 10px 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--green);
+}
+
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+@media (max-width: 620px) { .model-grid { grid-template-columns: 1fr; } }
+
+.model-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.model-card.iaas { border-top: 3px solid var(--blue); }
+.model-card.paas { border-top: 3px solid var(--purple); }
+.model-card.saas { border-top: 3px solid var(--green); }
+
+.model-title {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.model-card.iaas .model-title { color: var(--blue); }
+.model-card.paas .model-title { color: var(--purple); }
+.model-card.saas .model-title { color: var(--green); }
+
+.model-examples {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.cloud-types {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.cloud-pill {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid;
+  letter-spacing: 0.05em;
+}
+
+.pill-public  { color: var(--blue);   border-color: var(--blue);   background: rgba(59,130,246,0.1); }
+.pill-private { color: var(--purple); border-color: var(--purple); background: rgba(139,92,246,0.1); }
+.pill-hybrid  { color: var(--green);  border-color: var(--green);  background: rgba(16,185,129,0.1); }
+.pill-multi   { color: var(--amber);  border-color: var(--amber);  background: rgba(245,158,11,0.1); }
+
+.component-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+@media (max-width: 580px) { .component-list { grid-template-columns: 1fr; } }
+
+.comp-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.comp-item .comp-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  margin-bottom: 5px;
+  letter-spacing: 0.08em;
+}
+
+.nist-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+
+.nist-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.nist-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(59,130,246,0.3);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.nist-text { font-size: 0.88rem; line-height: 1.6; color: var(--text); }
+.nist-text strong { color: var(--cyan); }
+
+/* QUALITY ATTRIBUTES */
+.attr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+@media (max-width: 580px) { .attr-grid { grid-template-columns: 1fr; } }
+
+.attr-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.attr-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.attr-card.avail::before  { background: var(--green); }
+.attr-card.scale::before  { background: var(--blue); }
+.attr-card.elast::before  { background: var(--cyan); }
+.attr-card.sec::before    { background: var(--red); }
+.attr-card.perf::before   { background: var(--amber); }
+.attr-card.maint::before  { background: var(--purple); }
+
+.attr-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
+
+.attr-name {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.attr-card.avail .attr-name  { color: var(--green); }
+.attr-card.scale .attr-name  { color: var(--blue); }
+.attr-card.elast .attr-name  { color: var(--cyan); }
+.attr-card.sec .attr-name    { color: var(--red); }
+.attr-card.perf .attr-name   { color: var(--amber); }
+.attr-card.maint .attr-name  { color: var(--purple); }
+
+.attr-desc { font-size: 0.84rem; color: var(--text-dim); line-height: 1.55; }
+.attr-example {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+/* NETFLIX CASE */
+.netflix-timeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 16px 0;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tl-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 130px;
+  text-align: center;
+}
+
+.tl-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.tl-dot.bad  { background: rgba(239,68,68,0.15);  border: 2px solid var(--red);    color: var(--red); }
+.tl-dot.mid  { background: rgba(245,158,11,0.15); border: 2px solid var(--amber);  color: var(--amber); }
+.tl-dot.good { background: rgba(16,185,129,0.15); border: 2px solid var(--green);  color: var(--green); }
+
+.tl-label { font-size: 0.78rem; color: var(--text); font-weight: 600; margin-bottom: 3px; }
+.tl-sub { font-size: 0.72rem; color: var(--text-dim); line-height: 1.4; }
+
+.tl-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), var(--blue), var(--border));
+  min-width: 20px;
+  margin-bottom: 30px;
+}
+
+.netflix-services {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+@media (max-width: 580px) { .netflix-services { grid-template-columns: 1fr; } }
+
+.nf-service {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.84rem;
+}
+
+.nf-service-title {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--red);
+  margin-bottom: 5px;
+  letter-spacing: 0.08em;
+}
+
+.netflix-stat {
+  background: #1a0a0a;
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 14px 0;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nf-stat-item { text-align: center; }
+
+.nf-stat-num {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--red);
+  display: block;
+}
+
+.nf-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 14px 0;
+}
+
+@media (max-width: 580px) { .two-col { grid-template-columns: 1fr; } }
+
+.adv-col, .chal-col {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.adv-col { border-top: 3px solid var(--green); }
+.chal-col { border-top: 3px solid var(--red); }
+
+.col-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.adv-col .col-title { color: var(--green); }
+.chal-col .col-title { color: var(--red); }
+
+.bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+.bullet-list li {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.55;
+  padding-left: 18px;
+  position: relative;
+}
+
+.adv-col .bullet-list li::before {
+  content: '↗';
+  position: absolute; left: 0;
+  color: var(--green); font-size: 0.75rem;
+}
+
+.chal-col .bullet-list li::before {
+  content: '⚠';
+  position: absolute; left: 0;
+  color: var(--red); font-size: 0.65rem;
+  top: 3px;
+}
+
+.qa-block {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.qa-q {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.qa-q:hover { background: var(--surface2); }
+
+.q-mark {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--amber);
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.q-text { font-size: 0.9rem; font-weight: 500; flex: 1; color: var(--text); }
+
+.q-toggle {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: transform 0.3s;
+}
+
+.qa-block.open .q-toggle { transform: rotate(180deg); }
+
+.qa-a {
+  display: none;
+  padding: 16px 20px 16px 54px;
+  background: rgba(245,158,11,0.03);
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.75;
+}
+
+.qa-block.open .qa-a { display: block; }
+
+.conclusion-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 14px 0;
+}
+
+.conclusion-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.conclusion-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.conc-icon {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--blue);
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 4px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.conc-text { font-size: 0.9rem; color: var(--text); line-height: 1.65; }
+.conc-text strong { color: var(--cyan); }
+
+.section-div {
+  text-align: center;
+  margin: 48px 0 24px;
+  position: relative;
+}
+
+.section-div::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin-bottom: 16px;
+}
+
+.section-div-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  background: var(--bg);
+  padding: 0 16px;
+  display: inline-block;
+  position: relative;
+  top: -8px;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-dim); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-block { animation: fadeUp 0.35s ease both; }
+</style>
 </head>
 <body>
 <div class="page-wrap">
 
   <!-- HEADER -->
   <div class="site-header">
-    <span class="header-tag">// Ingeniería de Software · Guion de Exposición</span>
+    <span class="header-tag">// Ingeniería de Software · Guion de Exposición — VERSIÓN ACTUALIZADA</span>
     <h1 class="header-title">Arquitectura<br>en la <span class="accent">Nube</span></h1>
-    <p class="header-sub">Cloud Computing Architecture — Guion completo con notas de presentación</p>
+    <p class="header-sub">Guion completo con el nuevo orden de diapositivas y los temas agregados</p>
     <div class="header-meta">
       <span class="meta-chip blue">20–25 minutos</span>
       <span class="meta-chip cyan">Dos expositores</span>
-      <span class="meta-chip">9 slides</span>
-      <span class="meta-chip">5 preguntas frecuentes</span>
+      <span class="meta-chip">19 slides</span>
+      <span class="meta-chip green">✦ 3 slides nuevas</span>
     </div>
   </div>
 
@@ -28,6 +821,7 @@
     <div class="legend-item"><div class="legend-dot dot-e1"></div><span><strong style="color:var(--e1)">E1</strong> — Expositor 1</span></div>
     <div class="legend-item"><div class="legend-dot dot-e2"></div><span><strong style="color:var(--e2)">E2</strong> — Expositor 2</span></div>
     <div class="legend-item"><div class="legend-dot dot-note"></div><span><strong style="color:var(--amber)">NOTA</strong> — Instrucción de actuación</span></div>
+    <div class="legend-item"><div class="legend-dot dot-new"></div><span><strong style="color:var(--green)">NUEVO</strong> — Diapositiva agregada</span></div>
   </div>
 
   <!-- NAV -->
@@ -40,7 +834,7 @@
     <button class="nav-btn" onclick="toggleAll(false)">▲ Colapsar todo</button>
   </div>
 
-  <!-- ══════════ SLIDE 1 ══════════ -->
+  <!-- ══════════ SLIDE 01 ══════════ -->
   <div class="slide-block open" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
       <span class="slide-number">SLIDE 01</span>
@@ -67,38 +861,17 @@
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Nuestro tema es <strong>Arquitectura en la Nube</strong>, también conocida como <strong>Cloud Computing Architecture</strong>. Es el estilo arquitectónico que hoy domina la industria del software a nivel global. Vamos a ver qué es, cuáles son sus características fundamentales, los distintos modelos de servicio que existen, los tipos de nube, y para cerrar, las ventajas y desafíos reales que tiene este enfoque."
+            "Nuestro tema es <strong>Arquitectura en la Nube</strong>, también conocida como <strong>Cloud Computing Architecture</strong>. Es el estilo arquitectónico que hoy domina la industria del software a nivel global. Vamos a ver qué es, cuáles son sus características fundamentales, los distintos modelos de servicio, los tipos de nube, los atributos de calidad que la hacen poderosa, y un caso real de cómo se aplica todo esto."
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 2 ══════════ -->
+  <!-- ══════════ SLIDE 02 ══════════ -->
   <div class="slide-block open" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
       <span class="slide-number">SLIDE 02</span>
-      <span class="slide-label">Agenda</span>
-      <span class="slide-toggle">▼</span>
-    </div>
-    <div class="slide-body">
-      <div class="turn e1">
-        <div class="turn-badge"><span class="badge-label">E1</span></div>
-        <div class="turn-content">
-          <div class="stage-dir">Señalar brevemente cada punto de la agenda</div>
-          <p class="speech">
-            "Estos son los seis temas que vamos a cubrir hoy. Los abordamos en orden lógico: primero el <strong>qué</strong>, luego el <strong>cómo</strong>, y después el <strong>para qué</strong>.<br><br>
-            No se preocupen si algunos términos suenan nuevos — los vamos a explicar con ejemplos concretos del mundo real. Arrancamos."
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ SLIDE 3 ══════════ -->
-  <div class="slide-block open" data-slides="all">
-    <div class="slide-header" onclick="toggleSlide(this)">
-      <span class="slide-number">SLIDE 03</span>
       <span class="slide-label">¿Qué es la Arquitectura en la Nube?</span>
       <span class="slide-toggle">▼</span>
     </div>
@@ -107,9 +880,8 @@
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Empecemos por la base. ¿Qué es la arquitectura en la nube?<br><br>
-            Antes de existir la nube, cuando una empresa quería tener una aplicación disponible en internet, tenía que hacer todo esto: comprar servidores físicos, rentar espacio en un datacenter, contratar personas que los mantengan, configurar el software manualmente, y si el tráfico crecía de repente... comprar más servidores. Eso podía tardar semanas y costaba muchísimo dinero.<br><br>
-            La <strong>arquitectura en la nube</strong> cambia ese paradigma por completo. Es el conjunto de componentes tecnológicos, principios de diseño y decisiones organizacionales que permiten que una aplicación opere sobre infraestructura que no es tuya — es del proveedor cloud — accesible a través de internet, y que puedes usar como si fuera ilimitada."
+            "Empecemos por la base. Antes de existir la nube, cuando una empresa quería tener una aplicación en internet, tenía que comprar servidores físicos, rentar espacio en un datacenter, contratar personas que los mantengan, y si el tráfico crecía de repente... comprar más servidores. Eso podía tardar semanas y costaba muchísimo dinero.<br><br>
+            La <strong>arquitectura en la nube</strong> cambia ese paradigma. Es el conjunto de componentes tecnológicos, principios de diseño y decisiones organizacionales que permiten que una aplicación opere sobre infraestructura del proveedor cloud, accesible por internet, que puedes usar como si fuera ilimitada."
           </p>
         </div>
       </div>
@@ -117,29 +889,40 @@
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
           <p class="speech">
-            "La analogía perfecta para entenderlo es la electricidad. Cuando uno llega a su apartamento y necesita luz, no construye su propia planta eléctrica. Conecta el cable a la red, prende el interruptor, y la luz llega. El proveedor se encarga de toda la infraestructura. Usted solo paga por lo que consume al final del mes.<br><br>
-            La nube funciona exactamente igual. Usted no compra servidores. Los 'enchufa' al proveedor cloud y paga por los recursos que usó. Si necesita más capacidad, la solicita en minutos. Si ya no la necesita, la libera."
+            "La analogía perfecta es la electricidad. Cuando uno llega a su apartamento, no construye su propia planta eléctrica. Conecta el cable a la red, prende el interruptor, y la luz llega. El proveedor gestiona toda la infraestructura. Usted solo paga por lo que consume al final del mes.<br><br>
+            La nube funciona exactamente igual. No compra servidores. Los 'enchufa' al proveedor cloud y paga por los recursos que usó."
           </p>
           <div class="stat-box">📊 Mercado global cloud 2024: $680,000,000,000+ → proyección 2030: &gt;$1 billón</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 03 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 03</span>
+      <span class="slide-label">Principales Proveedores de Nube</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
-          <div class="stage-dir">Señalar los proveedores en la diapositiva</div>
-          <p class="speech">"Y quiénes son los grandes jugadores de este mercado:"</p>
+          <div class="stage-dir">Señalar los logos en la diapositiva</div>
+          <p class="speech">"¿Quiénes son los grandes jugadores de este mercado? Los tres dominantes son:"</p>
           <div class="model-grid">
             <div class="model-card iaas">
               <div class="model-title">AWS</div>
               <p class="model-examples">Amazon Web Services · Lanzado 2006 · Pionero · ~32% del mercado global</p>
             </div>
             <div class="model-card paas">
-              <div class="model-title">Azure</div>
-              <p class="model-examples">Microsoft Azure · Lanzado 2010 · Fuerte en entorno empresarial · Windows + Office 365</p>
+              <div class="model-title">AZURE</div>
+              <p class="model-examples">Microsoft Azure · Lanzado 2010 · Fuerte en entorno empresarial y Office 365 · ~22%</p>
             </div>
             <div class="model-card saas">
               <div class="model-title">GCP</div>
-              <p class="model-examples">Google Cloud Platform · Ventaja en IA y procesamiento de datos · Llegó después</p>
+              <p class="model-examples">Google Cloud Platform · Ventaja en IA y procesamiento de datos · ~11%</p>
             </div>
           </div>
           <p class="speech" style="margin-top:8px; font-size:0.88rem; color:var(--text-dim)">También: IBM Cloud y Oracle Cloud, enfocados en nichos corporativos específicos.</p>
@@ -148,11 +931,11 @@
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 4 ══════════ -->
+  <!-- ══════════ SLIDE 04 ══════════ -->
   <div class="slide-block" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
       <span class="slide-number">SLIDE 04</span>
-      <span class="slide-label">Características Esenciales (NIST)</span>
+      <span class="slide-label">Características Esenciales del Cloud (NIST)</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
@@ -160,13 +943,12 @@
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Ahora vamos a las características. ¿Qué hace que algo sea 'nube' y no simplemente un servidor con internet?<br><br>
-            El organismo de referencia mundial para esto es el <strong>NIST</strong> — el Instituto Nacional de Estándares y Tecnología de Estados Unidos — que definió formalmente las <strong>5 características esenciales</strong> del cloud computing. Si un sistema no cumple estas cinco, técnicamente no es 'nube'."
+            "¿Qué hace que algo sea 'nube' y no simplemente un servidor con internet? El <strong>NIST</strong> — Instituto Nacional de Estándares y Tecnología de Estados Unidos — definió formalmente las <strong>5 características esenciales</strong>. Si un sistema no cumple estas cinco, técnicamente no es 'nube'."
           </p>
           <div class="nist-list">
             <div class="nist-item">
               <div class="nist-num">01</div>
-              <div class="nist-text"><strong>Autoservicio bajo demanda</strong> — El usuario puede obtener recursos — servidores, almacenamiento, bases de datos — de forma inmediata y automática, sin necesidad de llamar a nadie. Doy clic en 'crear servidor' y en 60 segundos tengo uno funcionando en cualquier parte del mundo.</div>
+              <div class="nist-text"><strong>Autoservicio bajo demanda</strong> — El usuario obtiene recursos de forma inmediata y automática, sin intervención humana del proveedor. Ejemplo: crear un servidor en AWS en 60 segundos.</div>
             </div>
           </div>
         </div>
@@ -177,11 +959,11 @@
           <div class="nist-list">
             <div class="nist-item">
               <div class="nist-num">02</div>
-              <div class="nist-text"><strong>Acceso amplio a la red</strong> — Los recursos están disponibles a través de internet y son accesibles desde cualquier dispositivo — computador, celular, tablet — sin importar dónde esté el usuario. Esto habilita el trabajo remoto y los equipos distribuidos globalmente.</div>
+              <div class="nist-text"><strong>Acceso amplio a la red</strong> — Recursos disponibles por internet, accesibles desde cualquier dispositivo sin importar dónde esté el usuario. Habilita el trabajo remoto y equipos distribuidos globalmente.</div>
             </div>
             <div class="nist-item">
               <div class="nist-num">03</div>
-              <div class="nist-text"><strong>Agrupación de recursos (Resource Pooling)</strong> — El proveedor virtualiza miles de servidores físicos y los comparte entre miles de clientes simultáneamente, sin que ninguno sepa que comparte hardware. Es lo que hace posible que AWS pueda servir a millones de clientes con infraestructura finita.</div>
+              <div class="nist-text"><strong>Agrupación de recursos (Resource Pooling)</strong> — El proveedor virtualiza miles de servidores físicos y los comparte entre múltiples clientes simultáneamente. Cada cliente está completamente aislado aunque compartan el mismo hardware físico.</div>
             </div>
           </div>
         </div>
@@ -192,11 +974,11 @@
           <div class="nist-list">
             <div class="nist-item">
               <div class="nist-num">04</div>
-              <div class="nist-text"><strong>Elasticidad rápida</strong> — Los recursos escalan automáticamente según la carga. Piensen en Netflix: un martes a las 2AM hay poquísimos usuarios. El viernes a las 9PM cuando estrenan una serie, millones están conectados simultáneamente. Sin elasticidad, tendrían que sobreaprovisionar siempre para el peor caso — un desperdicio enorme. Con la nube, escala y se reduce solo.</div>
+              <div class="nist-text"><strong>Elasticidad rápida</strong> — Los recursos escalan automáticamente según la carga. Netflix un martes a las 2AM tiene poquísimos usuarios. El viernes a las 9PM cuando estrenan una serie, millones están conectados. Sin elasticidad tendrían que comprar servidores para el peor caso siempre — un desperdicio enorme.</div>
             </div>
             <div class="nist-item">
               <div class="nist-num">05</div>
-              <div class="nist-text"><strong>Servicio medido — Pay-as-you-go</strong> — Todo el uso se mide con precisión: horas de servidor, gigas almacenados, peticiones procesadas. El cliente paga exactamente eso. Es como la factura de agua: pagas por los metros cúbicos que consumiste, no una tarifa fija.</div>
+              <div class="nist-text"><strong>Servicio medido — Pay-as-you-go</strong> — Todo el uso se mide con precisión y el cliente paga exactamente lo que consumió. Es como la factura de agua: pagas por los metros cúbicos consumidos, no una tarifa fija.</div>
             </div>
           </div>
         </div>
@@ -204,73 +986,76 @@
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 5 ══════════ -->
-  <div class="slide-block" data-slides="all">
+  <!-- ══════════ SLIDE 05 — NUEVO: GRÁFICO ══════════ -->
+  <div class="slide-block is-new" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
-      <span class="slide-number">SLIDE 05</span>
-      <span class="slide-label">Modelos de Servicio: IaaS, PaaS, SaaS</span>
+      <span class="slide-number new-num">SLIDE 05</span>
+      <span class="slide-label">Gráfico — On-Premises vs IaaS vs PaaS vs SaaS</span>
+      <span class="new-badge">NUEVO</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
+      <div class="turn note">
+        <div class="turn-badge"><span class="badge-label">NOTA</span></div>
+        <div class="turn-content">
+          <div class="stage-dir">Mostrar la imagen del gráfico de capas (azul = cliente gestiona · naranja = proveedor gestiona)</div>
+        </div>
+      </div>
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Bien, ya sabemos qué es la nube y qué la caracteriza. Ahora la pregunta es: ¿cómo se vende? ¿Qué exactamente le ofrece el proveedor al cliente?<br><br>
-            Hay tres modelos de servicio, y la diferencia está en <strong>cuánta responsabilidad toma el proveedor y cuánta le queda al cliente</strong>. Piénsenlo como alquilar un lugar para vivir:<br><br>
-            <strong>1.</strong> Alquilar un lote baldío y construir todo desde cero → <strong>IaaS</strong><br>
-            <strong>2.</strong> Alquilar un apartamento sin muebles, con paredes, agua y luz → <strong>PaaS</strong><br>
-            <strong>3.</strong> Alquilar un apartamento completamente amoblado con servicio de limpieza → <strong>SaaS</strong>"
+            "Este gráfico es el más usado en la industria para explicar cómo funciona la nube. Tiene dos colores y eso es lo primero que hay que entender: el <strong>azul</strong> significa que esa capa la gestiona el <strong>cliente</strong> — o sea, nosotros. El <strong>naranja</strong> significa que la gestiona el <strong>proveedor cloud</strong> — AWS, Azure, Google. Entre más naranja tenga una columna, menos trabajo tiene el cliente."
           </p>
         </div>
       </div>
       <div class="turn e2">
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
-          <div class="stage-dir">Señalar columna IaaS</div>
+          <div class="stage-dir">Señalar cada columna de izquierda a derecha</div>
           <p class="speech">
-            "<strong>IaaS — Infrastructure as a Service.</strong><br>
-            El proveedor te da la infraestructura virtual: servidores (VMs), almacenamiento y redes. Tú instalas el sistema operativo, configuras el middleware y despliegas tu aplicación. Es la opción de más control pero también más responsabilidad. Ideal para equipos técnicos sólidos con requerimientos muy específicos."
+            "<strong>On-Premises</strong> — todo azul. Aquí no hay nube. La empresa compra sus propios servidores, instala todo, gestiona todo. Desde el cable de red hasta la aplicación. Costo altísimo, control total.<br><br>
+            <strong>IaaS</strong> — las capas de abajo se vuelven naranja: Networking, Storage, Servers y Virtualización las gestiona el proveedor. Pero el cliente todavía instala el sistema operativo, el middleware, el runtime y sube su aplicación. Ejemplo: alquilas un servidor virtual en AWS y tú le instalas Linux y tu software.<br><br>
+            <strong>PaaS</strong> — más naranja. Solo Applications y Data siguen siendo del cliente. El proveedor gestiona infraestructura Y plataforma. El cliente solo sube su código, no se preocupa por configurar nada. Ejemplo: Heroku, subes tu app y funciona.<br><br>
+            <strong>SaaS</strong> — todo naranja. El proveedor gestiona absolutamente todo. El cliente solo usa la aplicación desde el navegador. No instala nada, no configura nada. Ejemplo: Gmail, Zoom, Microsoft 365."
           </p>
-          <div class="model-examples" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:0.83rem;color:var(--text-dim)">
-            Ejemplos: <strong style="color:var(--blue)">AWS EC2</strong> · <strong style="color:var(--blue)">Azure Virtual Machines</strong> · <strong style="color:var(--blue)">Google Compute Engine</strong>
-          </div>
         </div>
       </div>
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
-          <div class="stage-dir">Señalar columna PaaS</div>
           <p class="speech">
-            "<strong>PaaS — Platform as a Service.</strong><br>
-            El proveedor gestiona también el sistema operativo, el runtime y el middleware. El cliente solo sube su código y la plataforma lo ejecuta. Ideal para desarrolladores que quieren enfocarse 100% en escribir código. Literalmente: hago <em>git push</em> y mi aplicación está en línea."
+            "En resumen: de izquierda a derecha, el cliente tiene cada vez <strong>menos responsabilidad técnica</strong> pero también <strong>menos control</strong>. La elección depende de cuánto control necesita la empresa y cuánto quiere delegar al proveedor."
           </p>
-          <div class="model-examples" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:0.83rem;color:var(--text-dim)">
-            Ejemplos: <strong style="color:var(--purple)">Heroku</strong> · <strong style="color:var(--purple)">Google App Engine</strong> · <strong style="color:var(--purple)">Azure App Service</strong>
-          </div>
-        </div>
-      </div>
-      <div class="turn e2">
-        <div class="turn-badge"><span class="badge-label">E2</span></div>
-        <div class="turn-content">
-          <div class="stage-dir">Señalar columna SaaS</div>
-          <p class="speech">
-            "<strong>SaaS — Software as a Service.</strong><br>
-            El proveedor gestiona absolutamente todo: infraestructura, plataforma y aplicación. El usuario final solo abre el navegador y usa el software. No instala nada, no actualiza nada, no administra nada. Paga una suscripción y usa el servicio. Por eso es el modelo más masivo y el que más usuarios tiene en el mundo."
-          </p>
-          <div class="model-examples" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:0.83rem;color:var(--text-dim)">
-            Ejemplos: <strong style="color:var(--green)">Gmail</strong> · <strong style="color:var(--green)">Microsoft 365</strong> · <strong style="color:var(--green)">Zoom</strong> · <strong style="color:var(--green)">Salesforce</strong>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 6 ══════════ -->
+  <!-- ══════════ SLIDE 06 ══════════ -->
   <div class="slide-block" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
       <span class="slide-number">SLIDE 06</span>
-      <span class="slide-label">Tipos de Nube</span>
+      <span class="slide-label">Módulos de Servicio — Introducción (título)</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "Ya entendemos visualmente cómo se distribuye la responsabilidad. Ahora vamos a ver cada uno de esos tres modelos de servicio en detalle."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 07 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 07</span>
+      <span class="slide-label">Pirámide IaaS / PaaS / SaaS</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
@@ -278,119 +1063,225 @@
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Los tres modelos de servicio nos dicen <em>qué</em> se ofrece. Pero hay otra dimensión importante: <strong>dónde y cómo se despliega esa nube</strong>. A eso lo llamamos el tipo de implementación. Hay cuatro tipos principales."
+            "Esta pirámide resume perfectamente la jerarquía. Abajo está <strong>IaaS</strong> — es la base, más control, más trabajo. En el medio <strong>PaaS</strong> — para desarrolladores. Arriba <strong>SaaS</strong> — para usuarios finales que no quieren gestionar nada.<br><br>
+            Y a la izquierda y derecha de la pirámide ven para quién está dirigido cada uno: IaaS para arquitectos de red y administradores IT, PaaS para desarrolladores de software, y SaaS para los usuarios finales como ustedes y yo cuando usamos Gmail."
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 08 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 08</span>
+      <span class="slide-label">IaaS — Infrastructure as a Service</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "<strong>IaaS — Infrastructure as a Service.</strong><br>
+            El proveedor te da la infraestructura virtual: servidores, almacenamiento y redes. Tú como cliente instalas el sistema operativo, configuras el middleware y despliegas tu aplicación. Es la opción de mayor control pero también mayor responsabilidad técnica.<br><br>
+            Piénsenlo como arrendar un lote vacío: tienes el terreno listo con servicios públicos, pero tú construyes la casa. Ideal para empresas con equipo técnico sólido que necesita control total sobre su entorno.<br><br>
+            Los ejemplos más conocidos: <strong>AWS EC2</strong>, <strong>Azure VMs</strong> y <strong>Google Compute Engine</strong>."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 09 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 09</span>
+      <span class="slide-label">PaaS — Platform as a Service</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e1">
+        <div class="turn-badge"><span class="badge-label">E1</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "<strong>PaaS — Platform as a Service.</strong><br>
+            El proveedor gestiona la infraestructura Y la plataforma — sistema operativo, runtime, middleware. El cliente solo sube su código y la plataforma lo ejecuta.<br><br>
+            Es el apartamento sin muebles: las paredes, el agua y la luz ya están. Tú solo llevas tus cosas. Ideal para desarrolladores que quieren enfocarse 100% en escribir código. Literalmente: hago <em>git push</em> y mi aplicación está en línea.<br><br>
+            Ejemplos: <strong>Heroku</strong>, <strong>Google App Engine</strong>, <strong>Azure App Service</strong>."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 10 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 10</span>
+      <span class="slide-label">SaaS — Software as a Service</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "<strong>SaaS — Software as a Service.</strong><br>
+            El proveedor gestiona absolutamente todo: infraestructura, plataforma y la aplicación en sí. El usuario final solo abre el navegador y usa el software. No instala nada, no actualiza nada, no administra nada. Paga una suscripción y usa el servicio.<br><br>
+            Es el apartamento completamente amoblado con servicio de limpieza incluido. Por eso es el modelo más masivo — es lo que usa el común de las personas todos los días sin saberlo.<br><br>
+            Ejemplos: <strong>Gmail</strong>, <strong>Microsoft 365</strong>, <strong>Salesforce</strong>, <strong>Zoom</strong>. Todos ustedes son usuarios de SaaS."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 11 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 11</span>
+      <span class="slide-label">Tipos de Implementación — Introducción (título)</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e1">
+        <div class="turn-badge"><span class="badge-label">E1</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "Los modelos de servicio nos dicen <em>qué</em> se ofrece. Pero hay otra dimensión igual de importante: <strong>dónde y cómo se despliega esa nube</strong>. A eso lo llamamos el tipo de implementación."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 12 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 12</span>
+      <span class="slide-label">Los 4 Tipos de Nube</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
           <div class="cloud-types">
             <span class="cloud-pill pill-public">☁️ Nube Pública</span>
             <span class="cloud-pill pill-private">🔒 Nube Privada</span>
             <span class="cloud-pill pill-hybrid">⚡ Nube Híbrida</span>
             <span class="cloud-pill pill-multi">🌐 Multi-Nube</span>
           </div>
-        </div>
-      </div>
-      <div class="turn e2">
-        <div class="turn-badge"><span class="badge-label">E2</span></div>
-        <div class="turn-content">
-          <div class="stage-dir">Señalar Nube Pública</div>
           <p class="speech">
-            "<strong>Nube Pública.</strong> La infraestructura es propiedad del proveedor — AWS, Azure, GCP — y es compartida entre múltiples clientes mediante virtualización. Aunque comparten el mismo hardware físico, cada cliente está completamente aislado mediante virtualización. Tú no ves los datos de la empresa de al lado aunque estén en el mismo servidor físico.<br><br>
-            Es la opción más económica porque los costos se distribuyen entre miles de clientes. La gran mayoría de startups y empresas de tecnología usan nube pública. La desventaja: menos control y dependencia de internet."
+            "<strong>Nube Pública</strong> — Infraestructura del proveedor compartida entre múltiples clientes mediante virtualización. Aunque comparten hardware físico, cada cliente está completamente aislado. Es la más económica porque los costos se distribuyen. La gran mayoría de startups usan nube pública. Ejemplos: AWS, Azure, GCP.<br><br>
+            <strong>Nube Privada</strong> — Infraestructura dedicada exclusivamente a una organización. Puede estar en sus propias instalaciones — <em>on-premise</em> — o en hardware dedicado gestionado por un tercero. La usan bancos, gobiernos y hospitales donde la regulación exige que los datos no salgan de ciertos perímetros. Más cara pero más control."
           </p>
         </div>
       </div>
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
-          <div class="stage-dir">Señalar Nube Privada</div>
           <p class="speech">
-            "<strong>Nube Privada.</strong> Infraestructura dedicada exclusivamente a una organización. Puede estar físicamente en sus propias instalaciones — <em>on-premise</em> — o gestionada por un tercero en hardware dedicado solo para esa empresa.<br><br>
-            ¿Quién usa esto? Bancos, entidades de gobierno, hospitales. Sectores donde la regulación exige que los datos no salgan de ciertos perímetros. El precio de eso es el costo: hay que comprar hardware, contratar personal especializado y mantener todo. Es mucho más caro."
-          </p>
-        </div>
-      </div>
-      <div class="turn e2">
-        <div class="turn-badge"><span class="badge-label">E2</span></div>
-        <div class="turn-content">
-          <div class="stage-dir">Señalar Nube Híbrida y Multi-Nube</div>
-          <p class="speech">
-            "<strong>Nube Híbrida.</strong> Combina lo mejor de los dos mundos. La empresa mantiene datos sensibles en su nube privada y usa la nube pública para todo lo que no requiere ese nivel de control. Un ejemplo real: un banco puede tener su core bancario en nube privada por regulación, pero su app móvil en AWS.<br><br>
-            <strong>Multi-Nube.</strong> La empresa usa simultáneamente varios proveedores de nube pública distintos. Ejemplo: AWS para el cómputo principal, Google Cloud para modelos de IA, Azure para integración con herramientas Microsoft. La ventaja principal: evitar el <strong>vendor lock-in</strong>. Si AWS sube los precios o tiene una caída masiva, la empresa no queda completamente afectada. <em>Netflix, Spotify y Airbnb utilizan este enfoque.</em>"
+            "<strong>Nube Híbrida</strong> — Combina nube pública y privada. La empresa mantiene datos sensibles en su nube privada y usa la nube pública para el resto. Ejemplo real: un banco tiene su core bancario en nube privada por regulación, pero su app móvil y sitio web en AWS. Flexibilidad máxima.<br><br>
+            <strong>Multi-Nube</strong> — La empresa usa simultáneamente varios proveedores de nube pública distintos. Ejemplo: AWS para cómputo, Google Cloud para IA, Azure para integración con Microsoft. La ventaja principal es evitar el <strong>vendor lock-in</strong> — si AWS falla o sube precios, la empresa no queda completamente afectada. Netflix, Spotify y Airbnb usan este enfoque."
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 7 ══════════ -->
-  <div class="slide-block" data-slides="all">
+  <!-- ══════════ SLIDE 13 — NUEVO: ATRIBUTOS DE CALIDAD ══════════ -->
+  <div class="slide-block is-new" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
-      <span class="slide-number">SLIDE 07</span>
-      <span class="slide-label">Componentes de la Arquitectura</span>
+      <span class="slide-number new-num">SLIDE 13</span>
+      <span class="slide-label">Atributos de Calidad / Fortalezas de la Nube</span>
+      <span class="new-badge">NUEVO</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "Hasta ahora hemos descrito <em>qué</em> es la nube. Ahora vamos a hablar de <em>en qué es buena</em> — y en arquitectura de software a eso lo llamamos <strong>atributos de calidad</strong>. Son características medibles que un sistema debe cumplir. Estos son los seis atributos más importantes de la arquitectura en la nube:"
+          </p>
+          <div class="attr-grid">
+            <div class="attr-card avail">
+              <span class="attr-icon">🟢</span>
+              <div class="attr-name">DISPONIBILIDAD</div>
+              <div class="attr-desc">El sistema está operativo casi todo el tiempo. Los proveedores garantizan uptime de 99.9% a 99.999% mediante datacenters redundantes en múltiples zonas. Si uno falla, otro toma el relevo sin que el usuario lo note.</div>
+              <div class="attr-example">Dato: 99.999% = menos de 5 minutos de caída al año</div>
+            </div>
+            <div class="attr-card scale">
+              <span class="attr-icon">📈</span>
+              <div class="attr-name">ESCALABILIDAD</div>
+              <div class="attr-desc">Capacidad de manejar más carga sin degradar el rendimiento. Escalado vertical: más CPU/RAM al mismo servidor. Escalado horizontal: más servidores en paralelo. En la nube ambos son automáticos.</div>
+              <div class="attr-example">Ejemplo: Black Friday — el sistema maneja 10x más tráfico del normal</div>
+            </div>
+            <div class="attr-card elast">
+              <span class="attr-icon">⚡</span>
+              <div class="attr-name">ELASTICIDAD</div>
+              <div class="attr-desc">Es escalabilidad en las dos direcciones. El sistema crece cuando hay más demanda y se reduce automáticamente cuando baja, liberando recursos y reduciendo costos sin intervención humana.</div>
+              <div class="attr-example">Netflix: escala hacia arriba los viernes 9PM, hacia abajo las 3AM</div>
+            </div>
+            <div class="attr-card sec">
+              <span class="attr-icon">🔐</span>
+              <div class="attr-name">SEGURIDAD</div>
+              <div class="attr-desc">Cifrado de datos en tránsito y en reposo. Gestión de identidades y accesos (IAM) que controla quién puede hacer qué. Cumplimiento de certificaciones internacionales como ISO 27001, SOC 2 y GDPR.</div>
+              <div class="attr-example">Modelo de responsabilidad compartida: proveedor + cliente</div>
+            </div>
+            <div class="attr-card perf">
+              <span class="attr-icon">🚀</span>
+              <div class="attr-name">RENDIMIENTO</div>
+              <div class="attr-desc">Baja latencia gracias a CDNs distribuidas globalmente que sirven el contenido desde el servidor más cercano al usuario. Los balanceadores de carga distribuyen peticiones entre múltiples servidores para evitar saturación.</div>
+              <div class="attr-example">CDN: usuario en Colombia recibe contenido desde servidor en Bogotá, no en EE.UU.</div>
+            </div>
+            <div class="attr-card maint">
+              <span class="attr-icon">🔧</span>
+              <div class="attr-name">MANTENIBILIDAD</div>
+              <div class="attr-desc">La infraestructura se define como código (Infrastructure as Code). Toda la arquitectura queda documentada, versionada y reproducible. Si algo falla, se puede reconstruir en minutos de forma automática.</div>
+              <div class="attr-example">Herramientas: Terraform, AWS CloudFormation, Pulumi</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
           <p class="speech">
-            "Hasta ahora hemos hablado del 'qué' y el 'cómo'. Ahora vamos a abrir el capó y ver los componentes concretos que forman una arquitectura en la nube. Cuando diseñas un sistema en la nube, no es solo 'un servidor en internet'. Es un conjunto de piezas especializadas que trabajan juntas. Vamos a ver las seis más importantes."
+            "Estos seis atributos son precisamente por qué las empresas migran a la nube. No es solo por moda — es porque la nube ofrece, de forma casi automática y a un costo menor, niveles de disponibilidad, seguridad y rendimiento que antes solo grandes corporaciones podían permitirse."
           </p>
-        </div>
-      </div>
-      <div class="turn e2">
-        <div class="turn-badge"><span class="badge-label">E2</span></div>
-        <div class="turn-content">
-          <div class="component-list">
-            <div class="comp-item">
-              <div class="comp-title">⚙️ CÓMPUTO</div>
-              Servidores virtuales, contenedores y funciones que ejecutan el código. El corazón del sistema. En AWS: <strong style="color:var(--cyan)">EC2</strong>. En Azure: Virtual Machines. También incluye Docker y Kubernetes.
-            </div>
-            <div class="comp-item">
-              <div class="comp-title">💾 ALMACENAMIENTO</div>
-              Almacenamiento de objetos para archivos como imágenes/videos — <strong style="color:var(--cyan)">AWS S3</strong> es el ejemplo icónico —, bases de datos relacionales y NoSQL, y discos virtuales para los servidores.
-            </div>
-          </div>
-          <p class="speech" style="margin-top:4px">
-            "<strong>Redes Virtuales:</strong> Las <strong>VPCs</strong> (Virtual Private Clouds) crean redes privadas dentro de la nube. Los balanceadores de carga distribuyen el tráfico entre varios servidores. Las <strong>CDNs</strong> sirven contenido desde servidores cercanos geográficamente al usuario para reducir la latencia."
-          </p>
-        </div>
-      </div>
-      <div class="turn e1">
-        <div class="turn-badge"><span class="badge-label">E1</span></div>
-        <div class="turn-content">
-          <div class="component-list">
-            <div class="comp-item">
-              <div class="comp-title">🔐 SEGURIDAD E IAM</div>
-              IAM = Identity and Access Management. Controla quién puede hacer qué dentro de la arquitectura. La información se cifra en tránsito y en reposo. En AWS: servicios IAM + KMS para gestión de claves.
-            </div>
-            <div class="comp-item">
-              <div class="comp-title">📊 MONITOREO Y LOGGING</div>
-              Herramientas como <strong style="color:var(--cyan)">CloudWatch</strong>, <strong style="color:var(--cyan)">Datadog</strong> o <strong style="color:var(--cyan)">Grafana</strong> muestran métricas, generan alertas y guardan logs de todo lo que ocurre en el sistema en tiempo real.
-            </div>
-            <div class="comp-item" style="grid-column: 1 / -1">
-              <div class="comp-title">📨 INTEGRACIÓN Y MENSAJERÍA</div>
-              Colas de mensajes y buses de eventos para comunicación asíncrona entre componentes. AWS SQS, Google Pub/Sub y Azure Event Hub permiten que un componente envíe información a otro sin que el receptor deba estar disponible en ese exacto momento.
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 8 ══════════ -->
+  <!-- ══════════ SLIDE 14 ══════════ -->
   <div class="slide-block" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
-      <span class="slide-number">SLIDE 08</span>
-      <span class="slide-label">Ventajas y Desafíos</span>
+      <span class="slide-number">SLIDE 14</span>
+      <span class="slide-label">Ventajas de la Nube — Introducción (título)</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
       <div class="turn e2">
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
-          <p class="speech">"Ya conocemos la arquitectura por dentro. Ahora viene la pregunta que toda empresa se hace antes de migrar: ¿vale la pena? ¿Cuáles son las ventajas reales y cuáles son los riesgos? Empecemos por las ventajas."</p>
+          <p class="speech">"Ya conocemos los atributos técnicos. Ahora vamos a ver cómo esos atributos se traducen en ventajas concretas para las organizaciones que adoptan la nube."</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 15 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 15</span>
+      <span class="slide-label">Ventajas</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
@@ -398,45 +1289,16 @@
             <div class="adv-col">
               <div class="col-title">✅ VENTAJAS</div>
               <ul class="bullet-list">
-                <li><strong>Reducción de costos de capital</strong> — Cero inversión inicial. Se paga mensualmente por uso. Transforma CAPEX en OPEX, más predecible para el flujo de caja.</li>
-                <li><strong>Escalabilidad automática</strong> — El sistema crece con la demanda sin intervención manual. Crítico para aplicaciones con tráfico variable.</li>
-                <li><strong>Alta disponibilidad global</strong> — Datacenters en múltiples regiones con redundancia. AWS garantiza disponibilidades de 99.9% al 99.999% — menos de 5 minutos de caída al año.</li>
+                <li><strong>Reducción de costos de capital</strong> — Cero inversión inicial. Se paga mensualmente por uso. Transforma CAPEX en OPEX, más predecible para el flujo de caja de cualquier empresa.</li>
+                <li><strong>Escalabilidad automática</strong> — El sistema crece con la demanda sin intervención manual. Crítico para picos de tráfico como Black Friday o estrenos de series.</li>
+                <li><strong>Alta disponibilidad global</strong> — Datacenters en múltiples regiones con redundancia. AWS garantiza disponibilidades de 99.9% al 99.999%.</li>
               </ul>
             </div>
             <div class="adv-col" style="border-top-color:var(--blue)">
               <div class="col-title" style="color:var(--blue)">✅ MÁS VENTAJAS</div>
-              <ul class="bullet-list" style="">
+              <ul class="bullet-list">
                 <li style="padding-left:18px"><strong>Velocidad de innovación</strong> — Desplegar código nuevo en minutos en lugar de semanas. Acelera dramáticamente el <em>time-to-market</em>.</li>
-                <li style="padding-left:18px"><strong>Seguridad gestionada</strong> — AWS, Azure y GCP invierten miles de millones al año en seguridad. Para la gran mayoría de empresas es imposible igualar ese nivel con recursos propios.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="turn e1">
-        <div class="turn-badge"><span class="badge-label">E1</span></div>
-        <div class="turn-content">
-          <div class="stage-dir">Pasar a desafíos</div>
-          <p class="speech" style="margin-bottom:12px">"Ahora bien, la nube no es perfecta. Hay desafíos reales que hay que entender."</p>
-        </div>
-      </div>
-      <div class="turn e2">
-        <div class="turn-badge"><span class="badge-label">E2</span></div>
-        <div class="turn-content">
-          <div class="two-col">
-            <div class="chal-col">
-              <div class="col-title">⚠ DESAFÍOS</div>
-              <ul class="bullet-list">
-                <li><strong>Vendor Lock-in</strong> — Construir todo con servicios propietarios de un proveedor puede hacer que migrar a otro tome años y millones. Solución: estrategias multi-nube y tecnologías abiertas como Kubernetes.</li>
-                <li><strong>Seguridad y privacidad</strong> — La responsabilidad es compartida. Una mala configuración puede exponer datos públicamente. El GDPR impone restricciones sobre dónde pueden residir los datos de ciudadanos europeos.</li>
-              </ul>
-            </div>
-            <div class="chal-col">
-              <div class="col-title">⚠ MÁS DESAFÍOS</div>
-              <ul class="bullet-list">
-                <li><strong>Costos variables</strong> — Si no se monitorea bien el consumo, los costos pueden dispararse. Existe la disciplina <strong>FinOps</strong> dedicada a optimizar y controlar estos costos.</li>
-                <li><strong>Latencia de red</strong> — Para sistemas que necesitan microsegundos (trading de alta frecuencia, control industrial) la dependencia de red puede ser un problema. Se usan <em>edge computing</em> o soluciones híbridas.</li>
-                <li><strong>Complejidad de gestión</strong> — Requiere conocimientos especializados (certificaciones AWS/Azure, Kubernetes, IaC). Hay escasez real de estos profesionales — y por eso son muy bien pagados.</li>
+                <li style="padding-left:18px"><strong>Seguridad gestionada</strong> — AWS, Azure y GCP invierten miles de millones al año en seguridad física y lógica. Para la gran mayoría de empresas es imposible igualar ese nivel con recursos propios.</li>
               </ul>
             </div>
           </div>
@@ -445,30 +1307,95 @@
     </div>
   </div>
 
-  <!-- ══════════ SLIDE 9 ══════════ -->
+  <!-- ══════════ SLIDE 16 ══════════ -->
   <div class="slide-block" data-slides="all">
     <div class="slide-header" onclick="toggleSlide(this)">
-      <span class="slide-number">SLIDE 09</span>
-      <span class="slide-label">Conclusiones y Cierre</span>
+      <span class="slide-number">SLIDE 16</span>
+      <span class="slide-label">Desafíos de la Nube — Introducción (título)</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">"La nube no es perfecta. Toda decisión arquitectónica tiene sus compromisos. Vamos a ver los desafíos reales que tienen las organizaciones que la adoptan."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 17 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 17</span>
+      <span class="slide-label">Desafíos</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <div class="two-col">
+            <div class="chal-col">
+              <div class="col-title">⚠ DESAFÍOS</div>
+              <ul class="bullet-list">
+                <li><strong>Vendor Lock-in</strong> — Construir todo con servicios propietarios de un proveedor puede hacer que migrar tome años y millones. Solución: multi-nube y tecnologías abiertas como Kubernetes.</li>
+                <li><strong>Seguridad y privacidad</strong> — La responsabilidad es compartida. Una mala configuración puede exponer datos públicamente. El GDPR impone restricciones sobre dónde pueden residir los datos de ciudadanos europeos.</li>
+              </ul>
+            </div>
+            <div class="chal-col">
+              <div class="col-title">⚠ MÁS DESAFÍOS</div>
+              <ul class="bullet-list">
+                <li><strong>Costos variables</strong> — Sin monitoreo, los costos pueden dispararse inesperadamente. Existe la disciplina <strong>FinOps</strong> dedicada exclusivamente a optimizar y controlar estos costos.</li>
+                <li><strong>Latencia de red</strong> — Para sistemas que necesitan microsegundos (trading, control industrial) la dependencia de red puede ser un problema. Se usan <em>edge computing</em> o soluciones híbridas.</li>
+                <li><strong>Complejidad de gestión</strong> — Requiere conocimientos especializados: certificaciones AWS/Azure, Kubernetes, Infrastructure as Code. Hay escasez real de estos profesionales — y por eso son muy bien pagados.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 18 — NUEVO: CASO REAL NETFLIX ══════════ -->
+  <div class="slide-block is-new" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number new-num">SLIDE 18</span>
+      <span class="slide-label">Caso Real — Netflix en la Nube</span>
+      <span class="new-badge">NUEVO</span>
       <span class="slide-toggle">▼</span>
     </div>
     <div class="slide-body">
       <div class="turn e1">
         <div class="turn-badge"><span class="badge-label">E1</span></div>
         <div class="turn-content">
-          <p class="speech" style="margin-bottom:14px">"Para cerrar, vamos a repasar los puntos más importantes que queremos que se lleven hoy."</p>
-          <div class="conclusion-box">
-            <div class="conclusion-item">
-              <span class="conc-icon">01</span>
-              <div class="conc-text">La <strong>arquitectura en la nube</strong> no es simplemente 'tener un servidor en internet'. Es un ecosistema completo con características bien definidas, modelos de servicio distintos y tipos de implementación que se eligen según el contexto.</div>
+          <p class="speech">
+            "Para cerrar, vamos a ver todo lo que explicamos aplicado en un caso real. Y el ejemplo más poderoso que existe de arquitectura en la nube es <strong>Netflix</strong>.<br><br>
+            En 2007, Netflix era una empresa de alquiler de DVDs por correo en Estados Unidos. Estaban comenzando el streaming pero toda su infraestructura eran servidores físicos propios. En 2008 sufrieron una corrupción grave en su base de datos que los dejó sin poder enviar DVDs durante <strong>3 días completos</strong>. Perdieron dinero, perdieron clientes, y casi quiebran."
+          </p>
+          <div class="netflix-timeline">
+            <div class="tl-step">
+              <div class="tl-dot bad">2008</div>
+              <div class="tl-label">Crisis</div>
+              <div class="tl-sub">Corrupción de BD · 3 días sin servicio</div>
             </div>
-            <div class="conclusion-item">
-              <span class="conc-icon">NIST</span>
-              <div class="conc-text">Las <strong>5 características del NIST</strong> — autoservicio, acceso por red, pooling, elasticidad y pago por uso — son el corazón conceptual de lo que hace que algo sea verdaderamente 'cloud'.</div>
+            <div class="tl-line"></div>
+            <div class="tl-step">
+              <div class="tl-dot mid">2009</div>
+              <div class="tl-label">Decisión</div>
+              <div class="tl-sub">Inician migración a AWS</div>
             </div>
-            <div class="conclusion-item">
-              <span class="conc-icon">SVC</span>
-              <div class="conc-text">Los <strong>tres modelos de servicio</strong> — IaaS, PaaS y SaaS — definen cuánto gestiona el proveedor y cuánto el cliente, desde el control total hasta el uso puro del software.</div>
+            <div class="tl-line"></div>
+            <div class="tl-step">
+              <div class="tl-dot mid">2012</div>
+              <div class="tl-label">Avance</div>
+              <div class="tl-sub">70% de su tráfico ya en la nube</div>
+            </div>
+            <div class="tl-line"></div>
+            <div class="tl-step">
+              <div class="tl-dot good">2016</div>
+              <div class="tl-label">Completo</div>
+              <div class="tl-sub">100% en AWS · 0 servidores propios</div>
             </div>
           </div>
         </div>
@@ -476,18 +1403,72 @@
       <div class="turn e2">
         <div class="turn-badge"><span class="badge-label">E2</span></div>
         <div class="turn-content">
-          <div class="conclusion-box">
-            <div class="conclusion-item">
-              <span class="conc-icon">TIPO</span>
-              <div class="conc-text">Los <strong>cuatro tipos de nube</strong> — pública, privada, híbrida y multi-nube — determinan dónde y cómo se despliega la infraestructura, con distintos balances entre control, seguridad y costo.</div>
+          <p class="speech">"¿Y qué usan exactamente? Acá es donde conecta todo lo que vimos hoy:"</p>
+          <div class="netflix-services">
+            <div class="nf-service">
+              <div class="nf-service-title">⚙️ IaaS — AWS EC2</div>
+              Miles de servidores virtuales que escalan automáticamente. En un estreno popular pueden tener 10 veces más servidores activos que una madrugada normal. Eso es <strong>elasticidad</strong> en acción.
             </div>
-            <div class="conclusion-item">
-              <span class="conc-icon">HOY</span>
-              <div class="conc-text">La nube no es el futuro. Es el presente. El <strong>94% de las empresas del mundo</strong> ya usan algún servicio de nube. La pregunta hoy no es si migrar a la nube, sino <strong>cómo hacerlo bien</strong>.</div>
+            <div class="nf-service">
+              <div class="nf-service-title">💾 ALMACENAMIENTO — S3</div>
+              Guardan todas las copias de su catálogo en múltiples formatos y calidades: 4K, HD, SD, para distintos dispositivos y velocidades de internet.
+            </div>
+            <div class="nf-service">
+              <div class="nf-service-title">🌐 CDN — CloudFront</div>
+              Distribuyen el video desde el servidor geográficamente más cercano al usuario. Por eso no hay buffering aunque estés en Colombia viendo una producción de EE.UU.
+            </div>
+            <div class="nf-service">
+              <div class="nf-service-title">🗄️ BASES DE DATOS EN LA NUBE</div>
+              DynamoDB para perfiles de usuario, historial de visualización y el algoritmo de recomendaciones que personaliza tu pantalla de inicio.
             </div>
           </div>
-          <p class="speech" style="margin-top:16px; color:var(--text-dim); font-size:0.9rem">
-            "Muchas gracias por su atención. Quedamos disponibles para preguntas."
+        </div>
+      </div>
+      <div class="turn e1">
+        <div class="turn-badge"><span class="badge-label">E1</span></div>
+        <div class="turn-content">
+          <p class="speech">"El resultado:"</p>
+          <div class="netflix-stat">
+            <div class="nf-stat-item">
+              <span class="nf-stat-num">270M</span>
+              <div class="nf-stat-label">usuarios activos</div>
+            </div>
+            <div class="nf-stat-item">
+              <span class="nf-stat-num">190</span>
+              <div class="nf-stat-label">países</div>
+            </div>
+            <div class="nf-stat-item">
+              <span class="nf-stat-num">99.99%</span>
+              <div class="nf-stat-label">disponibilidad</div>
+            </div>
+            <div class="nf-stat-item">
+              <span class="nf-stat-num">0</span>
+              <div class="nf-stat-label">servidores físicos propios</div>
+            </div>
+          </div>
+          <p class="speech" style="margin-top:12px">
+            "270 millones de usuarios en 190 países, disponibilidad del 99.99%, sin un solo servidor físico propio. Y cuando hay un estreno masivo, el sistema escala solo — sin que ningún ingeniero tenga que hacer nada manualmente. <em>Eso</em> es la arquitectura en la nube funcionando al máximo nivel."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 19 ══════════ -->
+  <div class="slide-block" data-slides="all">
+    <div class="slide-header" onclick="toggleSlide(this)">
+      <span class="slide-number">SLIDE 19</span>
+      <span class="slide-label">Thank You — Cierre</span>
+      <span class="slide-toggle">▼</span>
+    </div>
+    <div class="slide-body">
+      <div class="turn e2">
+        <div class="turn-badge"><span class="badge-label">E2</span></div>
+        <div class="turn-content">
+          <p class="speech">
+            "Para resumir lo que vimos hoy: las <strong>5 características del NIST</strong> son el corazón de lo que hace a algo verdaderamente cloud. Los <strong>3 modelos de servicio</strong> — IaaS, PaaS, SaaS — definen cuánto gestiona el proveedor. Los <strong>4 tipos de nube</strong> definen dónde y cómo se despliega. Los <strong>6 atributos de calidad</strong> explican por qué la arquitectura en la nube es tan poderosa. Y Netflix nos muestra que todo eso existe y funciona en el mundo real.<br><br>
+            La nube no es el futuro. Es el presente. El 94% de las empresas del mundo ya usan algún servicio cloud. La pregunta ya no es si migrar, sino cómo hacerlo bien.<br><br>
+            Muchas gracias por su atención. Quedamos disponibles para preguntas."
           </p>
         </div>
       </div>
@@ -515,7 +1496,7 @@
         <span class="q-text">¿Es la nube segura para datos sensibles?</span>
         <span class="q-toggle">▼</span>
       </div>
-      <div class="qa-a">Depende de cómo se use. Los proveedores ofrecen cifrado, control de acceso y certificaciones de seguridad internacionales. El problema casi siempre es la mala configuración por parte del cliente, no una falla del proveedor. Por eso existen el <strong>modelo de responsabilidad compartida</strong> y la disciplina de seguridad cloud.</div>
+      <div class="qa-a">Depende de cómo se use. Los proveedores ofrecen cifrado, control de acceso y certificaciones internacionales. El problema casi siempre es la mala configuración por parte del cliente, no una falla del proveedor. Por eso existe el <strong>modelo de responsabilidad compartida</strong>: el proveedor protege la infraestructura, el cliente protege sus datos y configuraciones.</div>
     </div>
 
     <div class="qa-block" data-slides="qa">
@@ -524,16 +1505,16 @@
         <span class="q-text">¿Cuánto cuesta usar la nube?</span>
         <span class="q-toggle">▼</span>
       </div>
-      <div class="qa-a">Depende completamente del uso. AWS Free Tier, por ejemplo, permite usar muchos servicios gratis durante el primer año. Una startup pequeña puede empezar con $50–$200 al mes. Empresas como Netflix gastan cientos de millones al año. La clave es que el costo escala con el negocio.</div>
+      <div class="qa-a">Depende completamente del uso. AWS Free Tier permite usar muchos servicios gratis durante el primer año. Una startup pequeña puede empezar con $50–$200 al mes. Empresas como Netflix gastan cientos de millones al año. La clave es que el costo escala con el negocio en lugar de ser un gasto fijo.</div>
     </div>
 
     <div class="qa-block" data-slides="qa">
       <div class="qa-q" onclick="toggleQA(this)">
         <span class="q-mark">P.04</span>
-        <span class="q-text">¿La nube siempre está disponible? ¿Nunca falla?</span>
+        <span class="q-text">¿La nube nunca falla?</span>
         <span class="q-toggle">▼</span>
       </div>
-      <div class="qa-a">Los proveedores ofrecen muy alta disponibilidad pero no disponibilidad perfecta. AWS, Azure y GCP han tenido caídas históricas que afectaron a miles de empresas simultáneamente. Por eso las arquitecturas bien diseñadas son <strong>multi-región y multi-zona</strong> para resistir fallas de un datacenter específico.</div>
+      <div class="qa-a">No. Los proveedores ofrecen muy alta disponibilidad pero no disponibilidad perfecta. AWS, Azure y GCP han tenido caídas históricas que afectaron a miles de empresas simultáneamente. Por eso las arquitecturas bien diseñadas son <strong>multi-región y multi-zona</strong> — si un datacenter falla, otro toma el relevo automáticamente.</div>
     </div>
 
     <div class="qa-block" data-slides="qa">
@@ -542,7 +1523,16 @@
         <span class="q-text">¿Qué es un datacenter de la nube?</span>
         <span class="q-toggle">▼</span>
       </div>
-      <div class="qa-a">Es una instalación física enorme — puede tener el tamaño de varios campos de fútbol — llena de servidores, sistemas de enfriamiento, fuentes de energía redundantes y conexiones de red de altísima velocidad. <strong>AWS tiene más de 100 zonas de disponibilidad en 32 regiones geográficas del mundo.</strong></div>
+      <div class="qa-a">Es una instalación física enorme — puede tener el tamaño de varios campos de fútbol — llena de servidores, sistemas de enfriamiento, fuentes de energía redundantes y conexiones de red de altísima velocidad. AWS tiene más de 100 zonas de disponibilidad en 32 regiones geográficas del mundo.</div>
+    </div>
+
+    <div class="qa-block" data-slides="qa">
+      <div class="qa-q" onclick="toggleQA(this)">
+        <span class="q-mark">P.06</span>
+        <span class="q-text">¿Por qué Netflix eligió AWS y no construyó su propia nube?</span>
+        <span class="q-toggle">▼</span>
+      </div>
+      <div class="qa-a">Porque el negocio de Netflix es el entretenimiento, no la infraestructura tecnológica. Construir y mantener una infraestructura global comparable a AWS requeriría invertir miles de millones de dólares y contratar cientos de ingenieros de infraestructura. Al usar AWS, Netflix paga por lo que consume y puede enfocar todos sus recursos en lo que realmente le importa: el contenido y la experiencia del usuario.</div>
     </div>
   </div>
 
@@ -585,18 +1575,14 @@ function filterSlides(mode, btn) {
 
   if (mode === 'e1') {
     slides.forEach(s => {
-      const e1turns = s.querySelectorAll('.turn.e1');
-      const e2turns = s.querySelectorAll('.turn.e2');
-      e1turns.forEach(t => t.style.display = 'flex');
-      e2turns.forEach(t => t.style.display = 'none');
+      s.querySelectorAll('.turn.e1').forEach(t => t.style.display = 'flex');
+      s.querySelectorAll('.turn.e2').forEach(t => t.style.display = 'none');
       s.classList.add('open');
     });
   } else if (mode === 'e2') {
     slides.forEach(s => {
-      const e1turns = s.querySelectorAll('.turn.e1');
-      const e2turns = s.querySelectorAll('.turn.e2');
-      e1turns.forEach(t => t.style.display = 'none');
-      e2turns.forEach(t => t.style.display = 'flex');
+      s.querySelectorAll('.turn.e1').forEach(t => t.style.display = 'none');
+      s.querySelectorAll('.turn.e2').forEach(t => t.style.display = 'flex');
       s.classList.add('open');
     });
   } else {
