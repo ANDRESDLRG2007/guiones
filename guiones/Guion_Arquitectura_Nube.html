@@ -1128,7 +1128,16 @@ body::before {
         <div class="turn-content">
           <div class="stage-dir">Explicar el modelo PaaS en una arquitectura práctica</div>
           <p class="speech">
-            "Este diagrama muestra un ejemplo concreto de <strong>Platform as a Service</strong> en Microsoft Azure. El proveedor se encarga de la infraestructura y la plataforma, y nosotros solo nos enfocamos en la aplicación y los datos."
+            "Este diagrama representa una arquitectura de Platform as a Service (PaaS) implementada en la nube de Microsoft Azure. Se divide principalmente en dos entornos: lo que sucede dentro de la nube y cómo acceden los usuarios desde afuera. Aquí tienes el desglose detallado:<br><br>
+            1. El Entorno de Nube (Microsoft Azure - PaaS)<br>
+            En la parte superior, dentro de la nube azul, se encuentran los componentes que el proveedor (Azure) gestiona a nivel de infraestructura, permitiendo que tú te enfoques solo en la aplicación y los datos:<br><br>
+            Servidor Windows: Actúa como el motor de ejecución o backend de la aplicación.<br>
+            MySQL v. 8.0: Es la base de datos relacional (SQL) donde se almacena y organiza toda la información del sistema.<br>
+            GestorUrbano: Representa la aplicación o el servicio web central que conecta la lógica del servidor con la base de datos.<br><br>
+            2. Capa de Acceso (Usuarios Externos)<br>
+            En la parte inferior, el diagrama muestra quiénes consumen estos servicios a través de internet:<br><br>
+            Dispositivos de la Ciudadanía: Representa el acceso público desde diversos dispositivos como tablets, celulares y computadoras personales.<br><br>
+            Red del Consultorio Jurídico: Representa un entorno corporativo o institucional donde varios equipos están conectados a través de un router para interactuar con la plataforma de forma privada o profesional."
           </p>
         </div>
       </div>
@@ -1158,36 +1167,6 @@ body::before {
               </div>
             </div>
           </div>
-          <p class="speech" style="margin-top:14px">
-            "Dentro de la nube, Azure gestiona el sistema operativo, el runtime y la base de datos. Nosotros solo subimos la aplicación GestorUrbano y dejamos que el proveedor maneje el resto. Desde afuera, los ciudadanos y el consultorio jurídico acceden por internet, enviando peticiones y recibiendo respuestas en tiempo real."
-          </p>
-          <br>
-                    <p class="speech" style="margin-top:14px">
-            "Este diagrama representa una arquitectura de Platform as a Service (PaaS) implementada en la nube de Microsoft Azure. Se divide principalmente en dos entornos: lo que sucede dentro de la nube y cómo acceden los usuarios desde afuera.
-
-Aquí tienes el desglose detallado:
-
-<h4>1. El Entorno de Nube (Microsoft Azure - PaaS)</h4>
-<p>En la parte superior, dentro de la nube azul, se encuentran los componentes que el proveedor (Azure) gestiona a nivel de infraestructura, permitiendo que tú te enfoques solo en la aplicación y los datos:</p>
-<ul>
-<li><strong>PaaS (Platform as a Service):</strong> Indica que la solución utiliza servicios donde la configuración del sistema operativo y el hardware es transparente para el desarrollador.</li>
-<li><strong>Servidor Windows:</strong> Actúa como el motor de ejecución o backend de la aplicación.</li>
-<li><strong>MySQL v. 8.0:</strong> Es la base de datos relacional (SQL) donde se almacena y organiza toda la información del sistema.</li>
-<li><strong>GestorUrbano:</strong> Representa la aplicación o el servicio web central que conecta la lógica del servidor con la base de datos.</li>
-</ul>
-
-<h4>2. Capa de Acceso (Usuarios Externos)</h4>
-<p>En la parte inferior, el diagrama muestra quiénes consumen estos servicios a través de internet:</p>
-<ul>
-<li><strong>Dispositivos de la Ciudadanía:</strong> Representa el acceso público desde diversos dispositivos como tablets, smartphones y computadoras personales.</li>
-<li><strong>Red del Consultorio Jurídico:</strong> Representa un entorno corporativo o institucional donde varios equipos están conectados a través de un router para interactuar con la plataforma de forma privada o profesional.</li>
-</ul>
-
-<h4>3. Flujo de Comunicación</h4>
-<p>Las flechas bidireccionales entre los dispositivos externos y la nube indican que hay un intercambio constante de información (peticiones y respuestas).</p>
-<p>Dentro de la nube, los tres componentes (Servidor, Base de Datos y App) están interconectados, lo que permite que el GestorUrbano consulte datos en MySQL y procese lógica en el Servidor Windows de manera integrada.</p>
-<p>Es un ejemplo claro de cómo una entidad (como un consultorio jurídico) puede digitalizar sus servicios usando herramientas modernas sin necesidad de tener servidores físicos en su oficina."
-          </p>
         </div>
       </div>
     </div>
