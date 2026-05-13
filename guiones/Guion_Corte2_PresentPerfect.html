@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verb Tense – Corte 2 – Presentation Script</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ── RESET ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: #f5f0eb;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+/* ── LAYOUT ───────────────────────────────────────────── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 28px 80px;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+header {
+  background: #2e2e2e;
+  color: #fff;
+  border-radius: 16px;
+  padding: 36px 40px 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 160px; height: 160px;
+  background: rgba(139,99,71,0.35);
+  border-radius: 50%;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 1;
+}
+header .subtitle {
+  margin-top: 10px;
+  font-size: 0.97rem;
+  color: #c9b89a;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+.meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
+}
+.pill {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 0.82rem;
+  color: #f0e8d8;
+  letter-spacing: 0.04em;
+}
+
+/* ── LANGUAGE TOGGLE BUTTON ───────────────────────────── */
+.lang-toggle-btn {
+  position: absolute;
+  top: 36px;
+  right: 40px;
+  background: #c9962c;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.lang-toggle-btn:hover {
+  background: #a87a20;
+  transform: translateY(-2px);
+}
+
+/* ── HOW TO USE ───────────────────────────────────────── */
+.how-to-use {
+  background: #fff9ee;
+  border: 1.5px dashed #c9962c;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 36px;
+  font-size: 0.93rem;
+}
+.how-to-use h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: #7a5c20;
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.how-to-use ul {
+  list-style: none;
+  padding: 0;
+}
+.how-to-use ul li {
+  padding: 4px 0 4px 22px;
+  position: relative;
+}
+.how-to-use ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #c9962c;
+  font-weight: 700;
+}
+
+/* ── SECTION CARD ─────────────────────────────────────── */
+.section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.07);
+  margin-bottom: 36px;
+  overflow: hidden;
+}
+
+/* ── SECTION HEADER VARIANTS ──────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  color: #fff;
+}
+.section-header.pp    { background: #2e2e2e; }
+.section-header.aux   { background: #6b4226; }
+.section-header.struc { background: #3d6b8a; }
+.section-header.keys  { background: #4a7a5c; }
+.section-header.ex    { background: #4a7a5c; }
+.section-header.vs    { background: #5a3a7a; }
+.section-header.vsdiff{ background: #7a4a2e; }
+.section-header.vsaux { background: #2e5a5a; }
+.section-header.vssent{ background: #4a5a2e; }
+.section-header.indef { background: #1a1a1a; }
+.section-header.things{ background: #6b4226; }
+.section-header.people{ background: #2e5a2e; }
+.section-header.places{ background: #2e3e6b; }
+.section-header.rules { background: #1a1a1a; }
+.section-header.thanks{ background: #2e2e2e; }
+
+.slide-badge {
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: 'Playfair Display', serif;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+/* ── SECTION BODY ─────────────────────────────────────── */
+.section-body {
+  padding: 26px 28px 28px;
+}
+
+/* ── SCRIPT BOX (blue box = words to say aloud) ───────── */
+.script-box {
+  background: #eef5ff;
+  border-left: 5px solid #3a78c9;
+  border-radius: 0 10px 10px 0;
+  padding: 18px 22px;
+  margin: 14px 0;
+  font-family: 'Lora', serif;
+  font-size: 1.01rem;
+  line-height: 1.9;
+  color: #1a2e4a;
+}
+.script-box p {
+  margin-bottom: 10px;
+}
+.script-box p:last-child { margin-bottom: 0; }
+
+/* ── NOTE BOX (gold = presenter tip, don't read aloud) ── */
+.note-box {
+  background: #fffbee;
+  border: 1.5px dashed #c9962c;
+  border-radius: 10px;
+  padding: 13px 18px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  color: #6b4a10;
+  line-height: 1.7;
+}
+.note-box::before {
+  content: '📝  ';
+}
+
+/* ── EMPHASIS within script ────────────────────────────── */
+.script-box strong { color: #1a4a8a; }
+.script-box em     { color: #5a7a3a; font-style: italic; }
+
+/* ── EXAMPLE ROWS ──────────────────────────────────────── */
+.example-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 8px 0;
+}
+.ex-badge {
+  flex-shrink: 0;
+  min-width: 52px;
+  text-align: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  margin-top: 2px;
+}
+.aff  { background: #4a7a5c; }
+.neg  { background: #8a3a2e; }
+.q    { background: #2e5a8a; }
+
+.ex-text {
+  font-size: 0.97rem;
+  color: #1a2c1a;
+  line-height: 1.75;
+  padding-top: 3px;
+}
+.ex-text em { color: #5a3a8a; font-style: normal; font-weight: 600; }
+
+/* ── COMPARE TABLE ──────────────────────────────────────── */
+.compare-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  margin: 14px 0;
+}
+.ct-header {
+  padding: 12px 16px;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.ct-header.left  { background: #2e2e2e; }
+.ct-header.right { background: #7a4a2e; }
+.ct-row-left, .ct-row-right {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border-bottom: 1px solid #eee;
+}
+.ct-row-left  { background: #fff; }
+.ct-row-right { background: #fdf6ec; }
+
+/* ── PRONOUN GRID ───────────────────────────────────────── */
+.pronoun-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0;
+}
+.pronoun-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+.pc-header {
+  padding: 10px 14px;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.pc-header.brown { background: #7a5a3a; }
+.pc-header.blue  { background: #2e5a8a; }
+.pc-header.red   { background: #8a3a2e; }
+.pc-header.green { background: #2e6e3e; }
+.pc-body {
+  background: #fff;
+  padding: 12px 14px;
+}
+.pc-body .use { font-size: 0.85rem; color: #666; margin-bottom: 8px; }
+.pc-body .ex-sent {
+  background: #fdf6ec;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #2c2c2c;
+}
+
+/* ── SIGNAL WORD GRID ───────────────────────────────────── */
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 14px 0;
+}
+.sg-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  font-size: 0.85rem;
+}
+.sg-header {
+  padding: 8px 12px;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+}
+.sg-body { background: #fff; padding: 10px 12px; line-height: 1.55; }
+.sg-body .def { color: #555; font-size: 0.82rem; margin-bottom: 6px; }
+.sg-body .eg  { background: #fdf6ec; border-radius: 5px; padding: 6px 10px; font-style: italic; font-size: 0.82rem; color: #2c2c2c; }
+.bg-brown  { background: #7a5a3a; }
+.bg-dark   { background: #2e2e2e; }
+.bg-green  { background: #2e6e3e; }
+.bg-red    { background: #8a3a2e; }
+.bg-blue   { background: #2e5a8a; }
+.bg-gold   { background: #8a7020; }
+.bg-grey   { background: #5a5a5a; }
+
+/* ── USAGE TABLE ───────────────────────────────────────── */
+.usage-table { width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; margin: 14px 0; font-size: 0.88rem; }
+.usage-table th { padding: 10px 14px; color: #fff; font-family: 'Playfair Display', serif; font-size: 0.88rem; letter-spacing: 0.04em; }
+.usage-table td { padding: 9px 14px; border-bottom: 1px solid #eee; line-height: 1.5; }
+.usage-table tr:nth-child(even) td { background: #fdf6ec; }
+.usage-table tr:nth-child(odd)  td { background: #fff; }
+.tick  { color: #2e6e3e; font-weight: 700; }
+.cross { color: #8a3a2e; font-weight: 700; }
+
+/* ── DIVIDER ────────────────────────────────────────────── */
+.topic-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0 28px;
+}
+.topic-divider::before,
+.topic-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+.topic-divider span {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: #888;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding: 24px;
+  background: #2e2e2e;
+  border-radius: 14px;
+  color: #c9b89a;
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header>
+    <button id="langToggle" class="lang-toggle-btn">🇪🇸 Traducir a Español</button>
+    <h1>Verb Tense — Presentation Script</h1>
+    <div class="subtitle">Cristian Andres De La Rue Garcia · English IV · Second Term</div>
+    <div class="meta-pills">
+      <span class="pill">📽 16 Slides</span>
+      <span class="pill">🎓 Present Perfect</span>
+      <span class="pill">⚖️ PP vs Past Simple</span>
+      <span class="pill">💬 Indefinite Pronouns</span>
+      <span class="pill">⏱ Est. 10–14 min video</span>
+    </div>
+  </header>
+
+  <div id="content-en">
+
+  <!-- ══════════════ HOW TO USE ══════════════ -->
+  <div class="how-to-use">
+    <h3>How to Use This Script</h3>
+    <ul>
+      <li><strong>Blue boxes</strong> → Read these OUT LOUD in front of the camera. These are the exact words for the video.</li>
+      <li><strong>Gold dashed boxes</strong> → Presenter tips and reminders. Do NOT read these aloud.</li>
+      <li>Each section matches exactly one or more slides from your presentation.</li>
+      <li>Read slowly and clearly. Pause after each key point.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 1 — TITLE
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header pp">
+      <span class="slide-badge">Slide 1</span>
+      <span class="section-title">Title — Verb Tense · Cristian Andres De La Rue Garcia</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Stand in front of the camera, smile, and wait a second before speaking. Show confidence!</div>
+      <div class="script-box">
+        <p>Good morning, everyone!</p>
+        <p>My name is Cristian Andres De La Rue Garcia, and welcome to my English IV presentation for the second term.</p>
+        <p>Today, I am going to explain three very important topics in English grammar:</p>
+        <p>First — the <strong>Present Perfect</strong> tense.</p>
+        <p>Second — how the <strong>Present Perfect is different from the Past Simple</strong>.</p>
+        <p>And third — <strong>Indefinite Pronouns</strong>: words like something, anything, nothing, somebody, anywhere, and more.</p>
+        <p>By the end of this video, you will understand how to form and use each of these, and when to choose one over the other.</p>
+        <p>Let's get started!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2 — PRESENT PERFECT OVERVIEW
+  ══════════════════════════════════════════════ -->
+  <div class="topic-divider"><span>Topic 1 — Present Perfect</span></div>
+
+  <div class="section">
+    <div class="section-header pp">
+      <span class="slide-badge">Slide 2</span>
+      <span class="section-title">Present Perfect — Overview</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Point to the three boxes on the slide as you mention each use.</div>
+      <div class="script-box">
+        <p>The first topic is the <strong>Present Perfect</strong>.</p>
+        <p>The Present Perfect is a verb tense that we use to connect the past with the present. It is different from the Past Simple because the action is still relevant NOW — it has a connection to the present moment.</p>
+        <p>We use the Present Perfect in three main situations.</p>
+        <p>The first one is for <strong>life experiences</strong> — things you have or have not done at some point in your life, without saying exactly when. For example: "I have visited Paris."</p>
+        <p>The second one is for <strong>recent events</strong> — actions that just happened and still affect the present. For example: "She has broken her arm." — the arm is still broken right now.</p>
+        <p>And the third one is for <strong>unfinished time</strong> — situations that started in the past and are still continuing. For example: "I have lived here for five years." — and I still live here today.</p>
+        <p>So remember: if the action has a connection to the present, we use the Present Perfect.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 3 — PRESENT PERFECT AUXILIARY
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header aux">
+      <span class="slide-badge">Slide 3</span>
+      <span class="section-title">Present Perfect — Auxiliary: HAVE / HAS</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Read the two columns clearly. Pause between HAVE and HAS to give the audience time to absorb the rule.</div>
+      <div class="script-box">
+        <p>Now, let's look at the auxiliary verb for the Present Perfect. The auxiliary is <strong>HAVE</strong> or <strong>HAS</strong>.</p>
+        <p>Choosing between them is simple. We use <strong>HAVE</strong> with the subjects: I, You, We, and They.</p>
+        <p>We use <strong>HAS</strong> with the subjects: He, She, and It — that is, the third person singular.</p>
+        <p>In negative sentences, we use: <strong>have not</strong>, which contracts to <strong>haven't</strong>, and <strong>has not</strong>, which contracts to <strong>hasn't</strong>.</p>
+        <p>For example: "She <em>hasn't</em> called me." — "We <em>haven't</em> seen that film."</p>
+        <p>In questions, we place HAVE or HAS at the beginning of the sentence, before the subject.</p>
+        <p>For example: "Have you finished your homework?" — "Has she arrived yet?"</p>
+        <p>So: HAVE goes with I, you, we, they — and HAS goes with he, she, it. This is the rule you must always remember.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 4 — PRESENT PERFECT STRUCTURE
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header struc">
+      <span class="slide-badge">Slide 4</span>
+      <span class="section-title">Present Perfect — Structure & Formation (all three forms)</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">The slide is titled "Past Simple · Structure & Formation" but it actually shows Present Perfect structures. Read it as Present Perfect — that is the correct topic.</div>
+      <div class="script-box">
+        <p>Now let's look at how to build the Present Perfect in all three sentence forms.</p>
+        <p>For <strong>affirmative sentences</strong>, the structure is:</p>
+        <p><strong>Subject + have / has + Past Participle (V3)</strong></p>
+        <p>The Past Participle — also called V3 — is the third form of the verb. For regular verbs, it is the same as the past form: walked, visited, finished. For irregular verbs, you must learn them: seen, eaten, gone, written, bought.</p>
+        <p>Examples: "She <em>has visited</em> France." — "They <em>have finished</em> their homework."</p>
+        <p>For <strong>negative sentences</strong>, the structure is:</p>
+        <p><strong>Subject + have not / has not + Past Participle</strong></p>
+        <p>Examples: "He <em>hasn't called</em> me." — "We <em>haven't seen</em> that film."</p>
+        <p>For <strong>questions</strong>, the structure is:</p>
+        <p><strong>Have / Has + Subject + Past Participle ?</strong></p>
+        <p>Examples: "Have you ever eaten sushi?" — "Has she arrived yet?"</p>
+        <p>So remember the three structures: affirmative uses have or has + V3. Negative adds not. And questions invert have or has with the subject.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5 — KEY SIGNAL WORDS
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header keys">
+      <span class="slide-badge">Slide 5</span>
+      <span class="section-title">Present Perfect — Key Signal Words (Time Expressions)</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Point to each card on the slide as you explain it. Take your time — these 7 words are very important for students.</div>
+      <div class="script-box">
+        <p>One of the most helpful things about the Present Perfect is that it has specific signal words — time expressions that tell you when to use it.</p>
+        <p>Let me go through each one.</p>
+        <p><strong>EVER</strong> — we use this in questions to ask about life experience at any point in time. Example: "Have you ever been to Paris?" — meaning: at any moment in your life, did you go to Paris?</p>
+        <p><strong>NEVER</strong> — this means not at any time in your life. Example: "She has never eaten sushi." — in her entire life, she has not eaten it.</p>
+        <p><strong>ALREADY</strong> — this goes in affirmative sentences and means the action happened sooner than expected. Example: "I have already finished." — I finished before you expected me to.</p>
+        <p><strong>YET</strong> — this is used in negatives and questions and means "up to this moment." Example: "Has he called yet?" — meaning: has he called up to now?</p>
+        <p><strong>JUST</strong> — this means very recently, a moment ago. Example: "They have just left." — they left only minutes ago.</p>
+        <p><strong>FOR</strong> — this expresses a duration of time. Example: "She has lived here for five years." — the total amount of time is five years.</p>
+        <p>And <strong>SINCE</strong> — this gives the starting point of an action. Example: "He has worked here since 2019." — he started in 2019 and is still working here now.</p>
+        <p>The key difference between FOR and SINCE: FOR is followed by a period of time — for five years, for two months. SINCE is followed by a point in time — since Monday, since 2019, since I was a child.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6 — EXAMPLES
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header ex">
+      <span class="slide-badge">Slide 6</span>
+      <span class="section-title">Present Perfect — Example Sentences</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Read each sentence clearly. Emphasize the verb (the bold word on screen) by slightly raising your voice.</div>
+      <div class="script-box">
+        <p>Let's practice with some example sentences. I'll show you affirmative, negative, and question forms.</p>
+        <p>Affirmative: "I have <strong>seen</strong> this movie three times." — I saw it more than once, and it is part of my experience.</p>
+        <p>Affirmative: "She has <strong>visited</strong> her grandmother recently." — this happened recently and is still relevant now.</p>
+        <p>Negative: "They haven't <strong>finished</strong> the assignment yet." — the time period is not over — they still have time, but they have not done it.</p>
+        <p>Negative: "He hasn't <strong>eaten</strong> since this morning." — he started fasting this morning and is still not eating now.</p>
+        <p>Question: "Have you ever <strong>tried</strong> Colombian food?" — at any point in your life.</p>
+        <p>Question: "Has she <strong>called</strong> you yet?" — up to this moment, did she call?</p>
+        <p>Notice that in every sentence, the verb is in its past participle form — seen, visited, finished, eaten, tried, called. This is always the rule with Present Perfect.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7 — PP VS PAST SIMPLE TITLE
+  ══════════════════════════════════════════════ -->
+  <div class="topic-divider"><span>Topic 2 — Present Perfect vs Past Simple</span></div>
+
+  <div class="section">
+    <div class="section-header vs">
+      <span class="slide-badge">Slide 7</span>
+      <span class="section-title">Present Perfect VS Past Simple — Section Intro</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">This is the "VS" slide — your voice should show contrast. Use a clear pause between the two sides.</div>
+      <div class="script-box">
+        <p>Now let's move to our second topic: <strong>Present Perfect versus Past Simple</strong>.</p>
+        <p>These two tenses both talk about the past — but they are very different in meaning and in use. This is one of the most common points of confusion for English learners, so let's make it very clear.</p>
+        <p>Look at these two sentences on the screen:</p>
+        <p>On the left: <strong>"I have seen that film."</strong> — Present Perfect.</p>
+        <p>On the right: <strong>"I saw that film last night."</strong> — Past Simple.</p>
+        <p>Both sentences are correct, but they communicate different things. The first one — Present Perfect — tells us that seeing the film is part of my experience, connected to now. The second one — Past Simple — tells us exactly when it happened: last night. It is finished and in the past.</p>
+        <p>The key question to ask yourself is: <em>Do I know when it happened?</em> If yes — use Past Simple. If the time is not important or not mentioned — use Present Perfect.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 8 — KEY DIFFERENCES TABLE
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header vsdiff">
+      <span class="slide-badge">Slide 8</span>
+      <span class="section-title">Present Perfect vs Past Simple — Key Differences</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Point to each row of the table on screen as you explain it. Read the left column first, then the right column for each comparison.</div>
+      <div class="script-box">
+        <p>Let's look at the key differences between these two tenses, side by side.</p>
+        <p>First difference — <strong>time</strong>: the Present Perfect does NOT mention a specific time. The Past Simple DOES mention or imply a specific time.</p>
+        <p>Second difference — <strong>connection to the present</strong>: the Present Perfect is connected to the present moment. The Past Simple describes a finished action with no connection to now.</p>
+        <p>Third difference — <strong>signal words</strong>: the Present Perfect uses words like already, yet, ever, just, for, and since. The Past Simple uses words like yesterday, last year, ago, and in 2020.</p>
+        <p>Now look at the examples in the table:</p>
+        <p>Present Perfect: "I have lost my keys." — this means I lost them and they are still lost. There is a present consequence.</p>
+        <p>Past Simple: "I lost my keys yesterday." — I know exactly when it happened. The focus is on the past event.</p>
+        <p>Present Perfect: "She has never tried sushi." — this is her life experience up to now.</p>
+        <p>Past Simple: "She didn't try sushi last night." — a specific moment in the past, finished.</p>
+        <p>So the main rule is: <strong>no specific time = Present Perfect</strong>. <strong>Specific time = Past Simple</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9 — AUXILIARY COMPARISON
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header vsaux">
+      <span class="slide-badge">Slide 9</span>
+      <span class="section-title">Present Perfect vs Past Simple — Auxiliary Comparison</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">This is a detailed slide with two text boxes. Read the left box first (Present Perfect), then the right box (Past Simple). Speak slowly — there is a lot of important information here.</div>
+      <div class="script-box">
+        <p>Now let's compare the auxiliary verbs used in each tense.</p>
+        <p>For the <strong>Present Perfect</strong>, the auxiliary verbs are HAVE and HAS. These auxiliaries are always present — in affirmative sentences, in negatives, and in questions. You cannot remove them.</p>
+        <p>HAS is used with the third person singular — he, she, it. HAVE is used with all other subjects — I, you, we, they. These auxiliaries are always followed by the verb in its <strong>past participle form</strong> — also called V3.</p>
+        <p>In informal speech, they are often contracted: "I've finished", "she's arrived", "we've studied." And in negatives: haven't and hasn't.</p>
+        <p>For the <strong>Past Simple</strong>, the auxiliary is <strong>DID</strong>. But here is an important difference: DID is only used in negative and interrogative sentences — not in affirmative ones.</p>
+        <p>In affirmative sentences, Past Simple does not use an auxiliary at all — the main verb changes directly to its past form: "She went to school." — "They bought a car."</p>
+        <p>But when you form a negative with DIDN'T or a question with DID, the main verb must return to its base form — the infinitive. Never say "He didn't went" — the correct form is "He didn't go."</p>
+        <p>So the key contrast is: Present Perfect always needs HAVE or HAS in every sentence form. Past Simple only uses DID in negatives and questions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 10 — SENTENCES COMPARISON
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header vssent">
+      <span class="slide-badge">Slide 10</span>
+      <span class="section-title">Present Perfect vs Past Simple — Sentences Side by Side</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Read each pair of sentences. Point left, then right. Make the contrast clear with your voice — the Present Perfect sounds "open," the Past Simple sounds "closed and finished."</div>
+      <div class="script-box">
+        <p>Let's now compare sentence pairs directly. These are real examples showing how the same idea changes meaning depending on the tense.</p>
+        <p>Pair one:</p>
+        <p>Present Perfect: <strong>"I have visited Colombia three times."</strong> — this is my life experience. I don't say when. It could be any time in the past.</p>
+        <p>Past Simple: <strong>"I visited Colombia in 2019."</strong> — a specific year is mentioned. The action is finished and placed in the past.</p>
+        <p>Pair two:</p>
+        <p>Present Perfect: <strong>"Have you eaten yet?"</strong> — the question refers to any moment up to now, today.</p>
+        <p>Past Simple: <strong>"Did you eat dinner last night?"</strong> — a specific time is mentioned: last night.</p>
+        <p>Pair three:</p>
+        <p>Present Perfect: <strong>"She has just arrived."</strong> — she arrived moments ago. The word "just" tells us it is very recent and connected to now.</p>
+        <p>Past Simple: <strong>"She arrived at 8 pm."</strong> — the exact time is given, so it is Past Simple.</p>
+        <p>Pair four:</p>
+        <p>Present Perfect: <strong>"We have studied English for two years."</strong> — we started two years ago and are STILL studying now.</p>
+        <p>Past Simple: <strong>"We studied English last semester."</strong> — it was a specific period that is now finished.</p>
+        <p>These pairs show perfectly how the two tenses work and why choosing the right one changes the meaning of your sentence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 11 — INDEFINITE PRONOUNS INTRO
+  ══════════════════════════════════════════════ -->
+  <div class="topic-divider"><span>Topic 3 — Indefinite Pronouns</span></div>
+
+  <div class="section">
+    <div class="section-header indef">
+      <span class="slide-badge">Slide 11</span>
+      <span class="section-title">Indefinite Pronouns — Overview</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">New topic! Show energy. Point to the three colored boxes: THINGS, PEOPLE, PLACES.</div>
+      <div class="script-box">
+        <p>Now we move to our third and final topic: <strong>Indefinite Pronouns</strong>.</p>
+        <p>Indefinite pronouns are words that refer to people, things, or places without being specific. Instead of saying "a specific person" or "a specific thing," we use these pronouns when we do not know — or do not want to specify — exactly who, what, or where.</p>
+        <p>In English, indefinite pronouns are formed using four prefixes: <strong>SOME-, ANY-, NO-,</strong> and <strong>EVERY-</strong>. Each prefix combines with three endings: <strong>-thing, -body / -one,</strong> and <strong>-where</strong>.</p>
+        <p>This gives us three categories:</p>
+        <p>For <strong>THINGS</strong>: something, anything, nothing, everything.</p>
+        <p>For <strong>PEOPLE</strong>: somebody, anybody, nobody, everybody.</p>
+        <p>For <strong>PLACES</strong>: somewhere, anywhere, nowhere, everywhere.</p>
+        <p>Each of these twelve words has a specific rule for when to use it — and that is exactly what we are going to learn right now.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12 — THINGS
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header things">
+      <span class="slide-badge">Slide 12</span>
+      <span class="section-title">Indefinite Pronouns — Things: something · anything · nothing · everything</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Point to each of the four cards as you explain. Read the example sentence clearly with intonation.</div>
+      <div class="script-box">
+        <p>Let's start with the group for <strong>THINGS</strong>.</p>
+        <p><strong>SOMETHING</strong> — we use this in affirmative sentences to refer to an unspecified thing. Example: "I want <em>something</em> to eat." — I want a thing to eat, but I'm not saying exactly what.</p>
+        <p><strong>ANYTHING</strong> — we use this in questions and negative sentences. Example: "Do you need <em>anything</em>?" — in a question. And: "I don't need <em>anything</em>." — in a negative.</p>
+        <p><strong>NOTHING</strong> — this has a negative meaning by itself. It means zero things. Example: "There is <em>nothing</em> in the fridge." — the fridge is completely empty. Be careful: because NOTHING already has a negative meaning, you should NEVER use it with "not" — that would be a double negative, which is incorrect in English.</p>
+        <p><strong>EVERYTHING</strong> — this refers to all things, the complete set. Example: "She knows <em>everything</em> about grammar." — all things, without exception.</p>
+        <p>So to summarize for things: SOMETHING in affirmatives, ANYTHING in questions and negatives, NOTHING when you mean zero things, and EVERYTHING when you mean all things.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 13 — PEOPLE
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header people">
+      <span class="slide-badge">Slide 13</span>
+      <span class="section-title">Indefinite Pronouns — People: somebody · anybody · nobody · everybody</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">The structure is identical to THINGS — same rules, just applied to people. You can remind the audience of the pattern.</div>
+      <div class="script-box">
+        <p>Now let's look at the same group of words, but for <strong>PEOPLE</strong>. The rules are exactly the same — only the ending changes: instead of -thing, we use -body.</p>
+        <p><strong>SOMEBODY</strong> — used in affirmative sentences. It refers to an unspecified person. Example: "Somebody called you this morning." — a person called, but I don't know who.</p>
+        <p><strong>ANYBODY</strong> — used in questions and negatives. Example: "Is anybody home?" — in a question. And: "I didn't see anybody." — in a negative sentence.</p>
+        <p><strong>NOBODY</strong> — means no person at all. It has negative meaning, just like NOTHING. Example: "Nobody knows the answer." — not a single person knows. Again, never combine NOBODY with "not" — it creates a double negative.</p>
+        <p><strong>EVERYBODY</strong> — refers to all people, every single person. Example: "Everybody passed the English exam!" — all students, without exception.</p>
+        <p>And just like with THINGS: SOMEBODY in affirmatives, ANYBODY in questions and negatives, NOBODY for no person, EVERYBODY for all people.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 14 — PLACES
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header places">
+      <span class="slide-badge">Slide 14</span>
+      <span class="section-title">Indefinite Pronouns — Places: somewhere · anywhere · nowhere · everywhere</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Third and final group. Point to each card. Students often mix up NOWHERE and ANYWHERE — clarify clearly.</div>
+      <div class="script-box">
+        <p>The third group is for <strong>PLACES</strong>. Now the ending is -where. And the rules — are exactly the same.</p>
+        <p><strong>SOMEWHERE</strong> — used in affirmative sentences to refer to an unspecified place. Example: "Let's go <em>somewhere</em> quiet to study." — we want a place, but we haven't decided exactly where.</p>
+        <p><strong>ANYWHERE</strong> — used in questions and negatives. Example: "Did you go anywhere last weekend?" — in a question. And: "I didn't go anywhere." — in a negative. This means I stayed in one place all weekend.</p>
+        <p><strong>NOWHERE</strong> — means no place at all. It already has negative meaning. Example: "There is nowhere to sit in this room." — there is not a single free seat. Remember: do not add "not" with NOWHERE.</p>
+        <p><strong>EVERYWHERE</strong> — means in all places, every location. Example: "I have looked everywhere for my keys." — I searched in every possible place.</p>
+        <p>So: SOMEWHERE — affirmative. ANYWHERE — questions and negatives. NOWHERE — no place, already negative. EVERYWHERE — all places, total.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 15 — USAGE RULES TABLE
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header rules">
+      <span class="slide-badge">Slide 15</span>
+      <span class="section-title">Indefinite Pronouns — Usage Rules: Some- vs Any- vs No- vs Every-</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">This slide has a summary table. Read it row by row. Emphasize the IMPORTANT TIP at the bottom — it is a common mistake.</div>
+      <div class="script-box">
+        <p>Now let's look at the complete usage rules. This table on the screen summarizes when to use each prefix.</p>
+        <p><strong>SOME-</strong> — words with SOME- go in affirmative sentences: yes. In questions, SOME- can be used in offers and requests — for example, "Would you like something to drink?" — but generally no in regular questions. And in negatives: no.</p>
+        <p><strong>ANY-</strong> — words with ANY- do not go in affirmative sentences. But they work perfectly in questions and in negatives. This is why we say "I don't need anything" and NOT "I don't need something."</p>
+        <p><strong>NO-</strong> — words with NO- can appear in affirmative sentences, but they already carry the negative meaning. Example: "Nobody called." — this is grammatically affirmative but means there were no calls. In questions they are rare, and in negatives you must never use them because that creates a double negative.</p>
+        <p><strong>EVERY-</strong> — words with EVERY- can be used in affirmative sentences, questions, and negatives. Example: "Everybody is here." — "Has everybody finished?" — "Not everybody agreed."</p>
+        <p>And the most important tip — please pay attention to this: <strong>NOBODY, NOTHING, and NOWHERE already have negative meaning. Never, ever combine them with "not."</strong></p>
+        <p>For example: Do NOT say "There is nowhere not to go." — just say "There is nowhere to go." Do NOT say "Nobody didn't come." — just say "Nobody came." This mistake is very common, so please remember it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 16 — THANK YOU
+  ══════════════════════════════════════════════ -->
+  <div class="topic-divider"><span>Closing</span></div>
+
+  <div class="section">
+    <div class="section-header thanks">
+      <span class="slide-badge">Slide 16</span>
+      <span class="section-title">Closing — Thank You</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">Smile, look at the camera, and speak with energy. This is your last impression — make it strong!</div>
+      <div class="script-box">
+        <p>And that is everything for today's presentation!</p>
+        <p>Let's do a very quick review of what we covered:</p>
+        <p>We started with the <strong>Present Perfect</strong> — a tense that connects the past to the present, formed with have or has plus the past participle. We use it for life experiences, recent events, and unfinished time periods.</p>
+        <p>Then we compared the <strong>Present Perfect with the Past Simple</strong>. The key rule is: if you mention a specific time — use Past Simple. If the time is not important or not mentioned — use Present Perfect.</p>
+        <p>And finally, we learned the <strong>Indefinite Pronouns</strong> — something, anything, nothing, everything for things — somebody, anybody, nobody, everybody for people — and somewhere, anywhere, nowhere, everywhere for places. Remember: SOME- goes in affirmatives, ANY- in questions and negatives, and NO- already means negative — so never combine it with "not."</p>
+        <p>I hope this video was helpful and clear. I worked hard to prepare this presentation, and I hope you learned something useful from it.</p>
+        <p>My name is Cristian Andres De La Rue Garcia. Thank you very much for watching!</p>
+        <p>Goodbye!</p>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /content-en -->
+
+  <div id="content-es" style="display: none;">
+    <div class="how-to-use">
+      <h3>Cómo usar este guion</h3>
+      <ul>
+        <li><strong>Cajas azules</strong> → Lee esto EN VOZ ALTA frente a la cámara. Estas son las palabras exactas para el video.</li>
+        <li><strong>Cajas doradas punteadas</strong> → Consejos y recordatorios para el presentador. NO leas esto en voz alta.</li>
+        <li>Cada sección corresponde exactamente a una o más diapositivas de tu presentación.</li>
+        <li>Lee despacio y con claridad. Haz una pausa después de cada punto clave.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-header pp">
+        <span class="slide-badge">Diapositiva 1</span>
+        <span class="section-title">Título — Tiempos Verbales · Cristian Andres De La Rue Garcia</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Párate frente a la cámara, sonríe y espera un segundo antes de hablar. ¡Muestra confianza!</div>
+        <div class="script-box">
+          <p>¡Buenos días a todos!</p>
+          <p>Mi nombre es Cristian Andres De La Rue Garcia, y bienvenidos a mi presentación de Inglés IV para el segundo corte.</p>
+          <p>Hoy voy a explicar tres temas muy importantes en la gramática inglesa:</p>
+          <p>Primero — el tiempo <strong>Presente Perfecto</strong>.</p>
+          <p>Segundo — en qué se diferencia el <strong>Presente Perfecto del Pasado Simple</strong>.</p>
+          <p>Y tercero — <strong>Pronombres Indefinidos</strong>: palabras como something, anything, nothing, somebody, anywhere, y más.</p>
+          <p>Al final de este video, entenderán cómo formar y usar cada uno de estos, y cuándo elegir uno sobre el otro.</p>
+          <p>¡Comencemos!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-divider"><span>Tema 1 — Presente Perfecto</span></div>
+
+    <div class="section">
+      <div class="section-header pp">
+        <span class="slide-badge">Diapositiva 2</span>
+        <span class="section-title">Presente Perfecto — Visión General</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Señala las tres cajas en la diapositiva a medida que mencionas cada uso.</div>
+        <div class="script-box">
+          <p>El primer tema es el <strong>Presente Perfecto</strong>.</p>
+          <p>El Presente Perfecto es un tiempo verbal que usamos para conectar el pasado con el presente. Es diferente del Pasado Simple porque la acción todavía es relevante AHORA — tiene una conexión con el momento presente.</p>
+          <p>Usamos el Presente Perfecto en tres situaciones principales.</p>
+          <p>La primera es para <strong>experiencias de vida</strong> — cosas que has hecho o no has hecho en algún momento de tu vida, sin decir exactamente cuándo. Por ejemplo: "I have visited Paris" (He visitado París).</p>
+          <p>La segunda es para <strong>eventos recientes</strong> — acciones que acaban de ocurrir y todavía afectan el presente. Por ejemplo: "She has broken her arm" (Se ha roto el brazo) — el brazo todavía está roto en este momento.</p>
+          <p>Y la tercera es para <strong>tiempo inacabado</strong> — situaciones que comenzaron en el pasado y todavía continúan. Por ejemplo: "I have lived here for five years" (He vivido aquí por cinco años) — y todavía vivo aquí hoy.</p>
+          <p>Así que recuerda: si la acción tiene una conexión con el presente, usamos el Presente Perfecto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header aux">
+        <span class="slide-badge">Diapositiva 3</span>
+        <span class="section-title">Presente Perfecto — Auxiliar: HAVE / HAS</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Lee las dos columnas claramente. Haz una pausa entre HAVE y HAS para darle tiempo a la audiencia de asimilar la regla.</div>
+        <div class="script-box">
+          <p>Ahora, veamos el verbo auxiliar para el Presente Perfecto. El auxiliar es <strong>HAVE</strong> o <strong>HAS</strong>.</p>
+          <p>Elegir entre ellos es simple. Usamos <strong>HAVE</strong> con los sujetos: I, You, We y They.</p>
+          <p>Usamos <strong>HAS</strong> con los sujetos: He, She y It — es decir, la tercera persona del singular.</p>
+          <p>En oraciones negativas, usamos: <strong>have not</strong>, que se contrae a <strong>haven't</strong>, y <strong>has not</strong>, que se contrae a <strong>hasn't</strong>.</p>
+          <p>Por ejemplo: "She <em>hasn't</em> called me." — "We <em>haven't</em> seen that film."</p>
+          <p>En preguntas, colocamos HAVE o HAS al principio de la oración, antes del sujeto.</p>
+          <p>Por ejemplo: "Have you finished your homework?" — "Has she arrived yet?"</p>
+          <p>Entonces: HAVE va con I, you, we, they — y HAS va con he, she, it. Esta es la regla que siempre debes recordar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header struc">
+        <span class="slide-badge">Diapositiva 4</span>
+        <span class="section-title">Presente Perfecto — Estructura y Formación</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">La diapositiva se titula "Past Simple · Structure & Formation" pero en realidad muestra estructuras de Presente Perfecto. Léelo como Presente Perfecto — ese es el tema correcto.</div>
+        <div class="script-box">
+          <p>Ahora veamos cómo construir el Presente Perfecto en las tres formas de oración.</p>
+          <p>Para <strong>oraciones afirmativas</strong>, la estructura es:</p>
+          <p><strong>Sujeto + have / has + Pasado Participio (V3)</strong></p>
+          <p>El Pasado Participio — también llamado V3 — es la tercera forma del verbo. Para los verbos regulares, es igual que la forma pasada: walked, visited, finished. Para los verbos irregulares, debes aprenderlos: seen, eaten, gone, written, bought.</p>
+          <p>Ejemplos: "She <em>has visited</em> France." — "They <em>have finished</em> their homework."</p>
+          <p>Para <strong>oraciones negativas</strong>, la estructura es:</p>
+          <p><strong>Sujeto + have not / has not + Pasado Participio</strong></p>
+          <p>Ejemplos: "He <em>hasn't called</em> me." — "We <em>haven't seen</em> that film."</p>
+          <p>Para <strong>preguntas</strong>, la estructura es:</p>
+          <p><strong>Have / Has + Sujeto + Pasado Participio ?</strong></p>
+          <p>Ejemplos: "Have you ever eaten sushi?" — "Has she arrived yet?"</p>
+          <p>Así que recuerda las tres estructuras: la afirmativa usa have o has + V3. La negativa añade not. Y en las preguntas se invierte have o has con el sujeto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header keys">
+        <span class="slide-badge">Diapositiva 5</span>
+        <span class="section-title">Presente Perfecto — Palabras Clave (Expresiones de Tiempo)</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Señala cada tarjeta en la diapositiva a medida que la explicas. Tómate tu tiempo — estas 7 palabras son muy importantes para los estudiantes.</div>
+        <div class="script-box">
+          <p>Una de las cosas más útiles del Presente Perfecto es que tiene palabras de señalización específicas — expresiones de tiempo que te indican cuándo usarlo.</p>
+          <p>Permítanme repasar cada una.</p>
+          <p><strong>EVER</strong> — la usamos en preguntas para preguntar sobre experiencias de vida en cualquier momento. Ejemplo: "¿Have you ever been to Paris?" — significado: en cualquier momento de tu vida, ¿fuiste a París?</p>
+          <p><strong>NEVER</strong> — esto significa en ningún momento de tu vida. Ejemplo: "She has never eaten sushi." — en toda su vida, no lo ha comido.</p>
+          <p><strong>ALREADY</strong> — esta va en oraciones afirmativas y significa que la acción ocurrió antes de lo esperado. Ejemplo: "I have already finished." — terminé antes de lo que esperabas.</p>
+          <p><strong>YET</strong> — se usa en negativas y preguntas y significa "hasta este momento" o "todavía". Ejemplo: "Has he called yet?" — significado: ¿ha llamado hasta ahora?</p>
+          <p><strong>JUST</strong> — esto significa muy recientemente, hace un momento. Ejemplo: "They have just left." — se fueron hace apenas unos minutos.</p>
+          <p><strong>FOR</strong> — esto expresa una duración de tiempo. Ejemplo: "She has lived here for five years." — la cantidad total de tiempo es de cinco años.</p>
+          <p>Y <strong>SINCE</strong> — esto da el punto de inicio de una acción. Ejemplo: "He has worked here since 2019." — comenzó en 2019 y todavía está trabajando aquí ahora.</p>
+          <p>La diferencia clave entre FOR y SINCE: FOR es seguido por un período de tiempo — for five years, for two months. SINCE es seguido por un punto en el tiempo — since Monday, since 2019, since I was a child.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header ex">
+        <span class="slide-badge">Diapositiva 6</span>
+        <span class="section-title">Presente Perfecto — Oraciones de Ejemplo</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Lee cada oración claramente. Enfatiza el verbo (la palabra en negrita en la pantalla) alzando ligeramente la voz.</div>
+        <div class="script-box">
+          <p>Practiquemos con algunas oraciones de ejemplo. Les mostraré formas afirmativas, negativas y de pregunta.</p>
+          <p>Afirmativa: "I have <strong>seen</strong> this movie three times." — La vi más de una vez, y es parte de mi experiencia.</p>
+          <p>Afirmativa: "She has <strong>visited</strong> her grandmother recently." — esto ocurrió recientemente y todavía es relevante ahora.</p>
+          <p>Negativa: "They haven't <strong>finished</strong> the assignment yet." — el período de tiempo no ha terminado — todavía tienen tiempo, pero no lo han hecho.</p>
+          <p>Negativa: "He hasn't <strong>eaten</strong> since this morning." — comenzó a ayunar esta mañana y todavía no ha comido ahora.</p>
+          <p>Pregunta: "Have you ever <strong>tried</strong> Colombian food?" — en cualquier momento de tu vida.</p>
+          <p>Pregunta: "Has she <strong>called</strong> you yet?" — hasta este momento, ¿ella llamó?</p>
+          <p>Noten que en cada oración, el verbo está en su forma de participio pasado — seen, visited, finished, eaten, tried, called. Esta es siempre la regla con el Presente Perfecto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-divider"><span>Tema 2 — Presente Perfecto vs Pasado Simple</span></div>
+
+    <div class="section">
+      <div class="section-header vs">
+        <span class="slide-badge">Diapositiva 7</span>
+        <span class="section-title">Presente Perfecto VS Pasado Simple — Introducción de la Sección</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Esta es la diapositiva de "VS" — tu voz debe mostrar contraste. Usa una pausa clara entre los dos lados.</div>
+        <div class="script-box">
+          <p>Ahora pasemos a nuestro segundo tema: <strong>Presente Perfecto versus Pasado Simple</strong>.</p>
+          <p>Estos dos tiempos hablan sobre el pasado — pero son muy diferentes en significado y uso. Este es uno de los puntos más comunes de confusión para los estudiantes de inglés, así que vamos a dejarlo muy claro.</p>
+          <p>Miren estas dos oraciones en la pantalla:</p>
+          <p>A la izquierda: <strong>"I have seen that film."</strong> — Presente Perfecto.</p>
+          <p>A la derecha: <strong>"I saw that film last night."</strong> — Pasado Simple.</p>
+          <p>Ambas oraciones son correctas, pero comunican cosas diferentes. La primera — Presente Perfecto — nos dice que ver la película es parte de mi experiencia, conectada con el ahora. La segunda — Pasado Simple — nos dice exactamente cuándo sucedió: anoche. Está terminada y en el pasado.</p>
+          <p>La pregunta clave que debes hacerte es: <em>¿Sé cuándo ocurrió?</em> Si la respuesta es sí — usa el Pasado Simple. Si el tiempo no es importante o no se menciona — usa el Presente Perfecto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header vsdiff">
+        <span class="slide-badge">Diapositiva 8</span>
+        <span class="section-title">Presente Perfecto vs Pasado Simple — Diferencias Clave</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Señala cada fila de la tabla en pantalla a medida que la explicas. Lee la columna izquierda primero, y luego la derecha para cada comparación.</div>
+        <div class="script-box">
+          <p>Veamos las diferencias clave entre estos dos tiempos, lado a lado.</p>
+          <p>Primera diferencia — el <strong>tiempo</strong>: el Presente Perfecto NO menciona un tiempo específico. El Pasado Simple SÍ menciona o implica un tiempo específico.</p>
+          <p>Segunda diferencia — <strong>conexión con el presente</strong>: el Presente Perfecto está conectado al momento presente. El Pasado Simple describe una acción finalizada sin conexión con el ahora.</p>
+          <p>Tercera diferencia — <strong>palabras clave</strong>: el Presente Perfecto usa palabras como already, yet, ever, just, for, y since. El Pasado Simple usa palabras como yesterday, last year, ago, y in 2020.</p>
+          <p>Ahora miren los ejemplos en la tabla:</p>
+          <p>Presente Perfecto: "I have lost my keys." — esto significa que las perdí y todavía están perdidas. Hay una consecuencia en el presente.</p>
+          <p>Pasado Simple: "I lost my keys yesterday." — Sé exactamente cuándo ocurrió. El enfoque está en el evento pasado.</p>
+          <p>Presente Perfecto: "She has never tried sushi." — esta es su experiencia de vida hasta ahora.</p>
+          <p>Pasado Simple: "She didn't try sushi last night." — un momento específico en el pasado, finalizado.</p>
+          <p>Así que la regla principal es: <strong>sin tiempo específico = Presente Perfecto</strong>. <strong>Tiempo específico = Pasado Simple</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header vsaux">
+        <span class="slide-badge">Diapositiva 9</span>
+        <span class="section-title">Presente Perfecto vs Pasado Simple — Comparación de Auxiliares</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Esta es una diapositiva detallada con dos cuadros de texto. Lee primero el cuadro izquierdo, luego el derecho. Habla despacio — hay mucha información importante aquí.</div>
+        <div class="script-box">
+          <p>Ahora comparemos los verbos auxiliares que se usan en cada tiempo.</p>
+          <p>Para el <strong>Presente Perfecto</strong>, los verbos auxiliares son HAVE y HAS. Estos auxiliares siempre están presentes — en oraciones afirmativas, en negativas y en preguntas. No puedes quitarlos.</p>
+          <p>HAS se usa con la tercera persona del singular — he, she, it. HAVE se usa con todos los demás sujetos — I, you, we, they. Estos auxiliares siempre van seguidos por el verbo en su <strong>forma de participio pasado</strong> — también llamado V3.</p>
+          <p>En el lenguaje informal, a menudo se contraen: "I've finished", "she's arrived", "we've studied." Y en negativas: haven't y hasn't.</p>
+          <p>Para el <strong>Pasado Simple</strong>, el auxiliar es <strong>DID</strong>. Pero aquí hay una diferencia importante: DID solo se usa en oraciones negativas e interrogativas — no en las afirmativas.</p>
+          <p>En las oraciones afirmativas, el Pasado Simple no usa un auxiliar en absoluto — el verbo principal cambia directamente a su forma pasada: "She went to school." — "They bought a car."</p>
+          <p>Pero cuando formas una negativa con DIDN'T o una pregunta con DID, el verbo principal debe volver a su forma base — el infinitivo. Nunca digas "He didn't went" — la forma correcta es "He didn't go."</p>
+          <p>Así que el contraste clave es: el Presente Perfecto siempre necesita HAVE o HAS en cada forma de oración. El Pasado Simple solo usa DID en negativas y preguntas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header vssent">
+        <span class="slide-badge">Diapositiva 10</span>
+        <span class="section-title">Presente Perfecto vs Pasado Simple — Oraciones Lado a Lado</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Lee cada par de oraciones. Señala a la izquierda, luego a la derecha. Haz que el contraste sea claro con tu voz — el Presente Perfecto suena "abierto", el Pasado Simple suena "cerrado y terminado".</div>
+        <div class="script-box">
+          <p>Comparemos ahora pares de oraciones directamente. Estos son ejemplos reales que muestran cómo la misma idea cambia de significado dependiendo del tiempo verbal.</p>
+          <p>Primer par:</p>
+          <p>Presente Perfecto: <strong>"I have visited Colombia three times."</strong> — esta es mi experiencia de vida. No digo cuándo. Podría ser en cualquier momento del pasado.</p>
+          <p>Pasado Simple: <strong>"I visited Colombia in 2019."</strong> — se menciona un año específico. La acción está terminada y situada en el pasado.</p>
+          <p>Segundo par:</p>
+          <p>Presente Perfecto: <strong>"Have you eaten yet?"</strong> — la pregunta se refiere a cualquier momento hasta ahora, el día de hoy.</p>
+          <p>Pasado Simple: <strong>"Did you eat dinner last night?"</strong> — se menciona un momento específico: anoche.</p>
+          <p>Tercer par:</p>
+          <p>Presente Perfecto: <strong>"She has just arrived."</strong> — ella llegó hace unos momentos. La palabra "just" nos dice que es muy reciente y está conectada con el ahora.</p>
+          <p>Pasado Simple: <strong>"She arrived at 8 pm."</strong> — se da la hora exacta, por lo que es Pasado Simple.</p>
+          <p>Cuarto par:</p>
+          <p>Presente Perfecto: <strong>"We have studied English for two years."</strong> — empezamos hace dos años y TODAVÍA estamos estudiando ahora.</p>
+          <p>Pasado Simple: <strong>"We studied English last semester."</strong> — fue un período específico que ya terminó.</p>
+          <p>Estos pares muestran perfectamente cómo funcionan los dos tiempos y por qué elegir el correcto cambia el significado de tu oración.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-divider"><span>Tema 3 — Pronombres Indefinidos</span></div>
+
+    <div class="section">
+      <div class="section-header indef">
+        <span class="slide-badge">Diapositiva 11</span>
+        <span class="section-title">Pronombres Indefinidos — Visión General</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">¡Nuevo tema! Muestra energía. Señala las tres cajas de colores: COSAS, PERSONAS, LUGARES.</div>
+        <div class="script-box">
+          <p>Ahora pasamos a nuestro tercer y último tema: <strong>Pronombres Indefinidos</strong>.</p>
+          <p>Los pronombres indefinidos son palabras que se refieren a personas, cosas o lugares sin ser específicos. En lugar de decir "una persona específica" o "una cosa específica", usamos estos pronombres cuando no sabemos — o no queremos especificar — exactamente quién, qué o dónde.</p>
+          <p>En inglés, los pronombres indefinidos se forman usando cuatro prefijos: <strong>SOME-, ANY-, NO-,</strong> y <strong>EVERY-</strong>. Cada prefijo se combina con tres terminaciones: <strong>-thing, -body / -one,</strong> y <strong>-where</strong>.</p>
+          <p>Esto nos da tres categorías:</p>
+          <p>Para <strong>COSAS</strong>: something, anything, nothing, everything.</p>
+          <p>Para <strong>PERSONAS</strong>: somebody, anybody, nobody, everybody.</p>
+          <p>Para <strong>LUGARES</strong>: somewhere, anywhere, nowhere, everywhere.</p>
+          <p>Cada una de estas doce palabras tiene una regla específica para cuando usarla — y eso es exactamente lo que vamos a aprender ahora mismo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header things">
+        <span class="slide-badge">Diapositiva 12</span>
+        <span class="section-title">Pronombres Indefinidos — Cosas: something · anything · nothing · everything</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Señala cada una de las cuatro tarjetas mientras explicas. Lee la oración de ejemplo claramente con entonación.</div>
+        <div class="script-box">
+          <p>Comencemos con el grupo para <strong>COSAS (Things)</strong>.</p>
+          <p><strong>SOMETHING</strong> — lo usamos en oraciones afirmativas para referirnos a una cosa no especificada. Ejemplo: "I want <em>something</em> to eat." — Quiero una cosa para comer, pero no digo exactamente qué.</p>
+          <p><strong>ANYTHING</strong> — lo usamos en preguntas y oraciones negativas. Ejemplo: "¿Do you need <em>anything</em>?" — en una pregunta. Y: "I don't need <em>anything</em>." — en una negativa.</p>
+          <p><strong>NOTHING</strong> — esto tiene un significado negativo por sí mismo. Significa cero cosas (nada). Ejemplo: "There is <em>nothing</em> in the fridge." — el refrigerador está completamente vacío. Ten cuidado: porque NOTHING ya tiene un significado negativo, NUNCA debes usarlo con la palabra "not" — eso sería una doble negación, lo cual es incorrecto en inglés.</p>
+          <p><strong>EVERYTHING</strong> — esto se refiere a todas las cosas, el conjunto completo (todo). Ejemplo: "She knows <em>everything</em> about grammar." — todas las cosas, sin excepción.</p>
+          <p>Así que para resumir para cosas: SOMETHING en afirmativas, ANYTHING en preguntas y negativas, NOTHING cuando te refieres a cero cosas, y EVERYTHING cuando te refieres a todas las cosas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header people">
+        <span class="slide-badge">Diapositiva 13</span>
+        <span class="section-title">Pronombres Indefinidos — Personas: somebody · anybody · nobody · everybody</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">La estructura es idéntica a COSAS — mismas reglas, solo aplicadas a personas. Puedes recordarle a la audiencia el patrón.</div>
+        <div class="script-box">
+          <p>Ahora veamos el mismo grupo de palabras, pero para <strong>PERSONAS (People)</strong>. Las reglas son exactamente las mismas — solo cambia la terminación: en lugar de -thing, usamos -body.</p>
+          <p><strong>SOMEBODY</strong> — se usa en oraciones afirmativas. Se refiere a una persona no especificada (alguien). Ejemplo: "Somebody called you this morning." — una persona llamó, pero no sé quién.</p>
+          <p><strong>ANYBODY</strong> — se usa en preguntas y negativas. Ejemplo: "¿Is anybody home?" — en una pregunta. Y: "I didn't see anybody." — en una oración negativa.</p>
+          <p><strong>NOBODY</strong> — significa ninguna persona en absoluto (nadie). Tiene un significado negativo, al igual que NOTHING. Ejemplo: "Nobody knows the answer." — ni una sola persona lo sabe. Nuevamente, nunca combines NOBODY con "not" — crea una doble negación.</p>
+          <p><strong>EVERYBODY</strong> — se refiere a todas las personas, cada individuo (todos). Ejemplo: "¡Everybody passed the English exam!" — todos los estudiantes, sin excepción.</p>
+          <p>Y al igual que con las COSAS: SOMEBODY en afirmativas, ANYBODY en preguntas y negativas, NOBODY para ninguna persona, EVERYBODY para todas las personas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header places">
+        <span class="slide-badge">Diapositiva 14</span>
+        <span class="section-title">Pronombres Indefinidos — Lugares: somewhere · anywhere · nowhere · everywhere</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Tercer y último grupo. Señala cada tarjeta. Los estudiantes a menudo confunden NOWHERE y ANYWHERE — acláralo bien.</div>
+        <div class="script-box">
+          <p>El tercer grupo es para <strong>LUGARES (Places)</strong>. Ahora la terminación es -where. Y las reglas — son exactamente las mismas.</p>
+          <p><strong>SOMEWHERE</strong> — se usa en oraciones afirmativas para referirse a un lugar no especificado (algún lugar). Ejemplo: "Let's go <em>somewhere</em> quiet to study." — queremos un lugar, pero no hemos decidido exactamente dónde.</p>
+          <p><strong>ANYWHERE</strong> — se usa en preguntas y negativas. Ejemplo: "¿Did you go anywhere last weekend?" — en una pregunta. Y: "I didn't go anywhere." — en una negativa. Esto significa que me quedé en un solo lugar todo el fin de semana.</p>
+          <p><strong>NOWHERE</strong> — significa en ningún lugar. Ya tiene un significado negativo. Ejemplo: "There is nowhere to sit in this room." — no hay ni un solo asiento libre. Recuerda: no agregues "not" con NOWHERE.</p>
+          <p><strong>EVERYWHERE</strong> — significa en todos los lugares, en cada ubicación. Ejemplo: "I have looked everywhere for my keys." — busqué en todos los lugares posibles.</p>
+          <p>Entonces: SOMEWHERE — afirmativa. ANYWHERE — preguntas y negativas. NOWHERE — ningún lugar, ya es negativo. EVERYWHERE — todos los lugares, total.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header rules">
+        <span class="slide-badge">Diapositiva 15</span>
+        <span class="section-title">Pronombres Indefinidos — Reglas de Uso: Some- vs Any- vs No- vs Every-</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Esta diapositiva tiene una tabla resumen. Léela fila por fila. Enfatiza el CONSEJO IMPORTANTE en la parte inferior — es un error común.</div>
+        <div class="script-box">
+          <p>Ahora veamos las reglas de uso completas. Esta tabla en la pantalla resume cuándo usar cada prefijo.</p>
+          <p><strong>SOME-</strong> — las palabras con SOME- van en oraciones afirmativas: sí. En preguntas, SOME- se puede usar en ofertas y solicitudes — por ejemplo, "¿Would you like something to drink?" — pero generalmente no en preguntas regulares. Y en negativas: no.</p>
+          <p><strong>ANY-</strong> — las palabras con ANY- no van en oraciones afirmativas. Pero funcionan perfectamente en preguntas y en negativas. Por eso decimos "I don't need anything" y NO "I don't need something."</p>
+          <p><strong>NO-</strong> — las palabras con NO- pueden aparecer en oraciones afirmativas, pero ya llevan el significado negativo. Ejemplo: "Nobody called." — esto es gramaticalmente afirmativo pero significa que no hubo llamadas. En preguntas son raras, y en negativas nunca debes usarlas porque eso crea una doble negación.</p>
+          <p><strong>EVERY-</strong> — las palabras con EVERY- se pueden usar en oraciones afirmativas, preguntas y negativas. Ejemplo: "Everybody is here." — "¿Has everybody finished?" — "Not everybody agreed."</p>
+          <p>Y el consejo más importante — por favor, presten atención a esto: <strong>NOBODY, NOTHING y NOWHERE ya tienen un significado negativo. Nunca, jamás los combinen con la palabra "not."</strong></p>
+          <p>Por ejemplo: NO digan "There is nowhere not to go." — solo digan "There is nowhere to go." NO digan "Nobody didn't come." — solo digan "Nobody came." Este error es muy común, así que por favor recuérdenlo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-divider"><span>Cierre</span></div>
+
+    <div class="section">
+      <div class="section-header thanks">
+        <span class="slide-badge">Diapositiva 16</span>
+        <span class="section-title">Cierre — Gracias</span>
+      </div>
+      <div class="section-body">
+        <div class="note-box">Sonríe, mira a la cámara y habla con energía. Esta es tu última impresión — ¡haz que sea fuerte!</div>
+        <div class="script-box">
+          <p>¡Y eso es todo por la presentación de hoy!</p>
+          <p>Hagamos un repaso muy rápido de lo que cubrimos:</p>
+          <p>Comenzamos con el <strong>Presente Perfecto</strong> — un tiempo que conecta el pasado con el presente, formado con have o has más el participio pasado. Lo usamos para experiencias de vida, eventos recientes y períodos de tiempo inacabados.</p>
+          <p>Luego comparamos el <strong>Presente Perfecto con el Pasado Simple</strong>. La regla clave es: si mencionas un tiempo específico — usa Pasado Simple. Si el tiempo no es importante o no se menciona — usa Presente Perfecto.</p>
+          <p>Y finalmente, aprendimos los <strong>Pronombres Indefinidos</strong> — something, anything, nothing, everything para cosas — somebody, anybody, nobody, everybody para personas — y somewhere, anywhere, nowhere, everywhere para lugares. Recuerda: SOME- va en afirmativas, ANY- en preguntas y negativas, y NO- ya significa negativo — así que nunca lo combines con "not."</p>
+          <p>Espero que este video haya sido útil y claro. Trabajé duro para preparar esta presentación, y espero que hayan aprendido algo útil de ella.</p>
+          <p>Mi nombre es Cristian Andres De La Rue Garcia. ¡Muchas gracias por ver!</p>
+          <p>¡Adiós!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  English IV · Second Term · Cristian Andres De La Rue Garcia · Verb Tense Presentation Script — Corte 2
+</footer>
+
+<script>
+  let currentLang = 'en';
+  const toggleBtn = document.getElementById('langToggle');
+  const enContent = document.getElementById('content-en');
+  const esContent = document.getElementById('content-es');
+
+  toggleBtn.addEventListener('click', () => {
+    if (currentLang === 'en') {
+      enContent.style.display = 'none';
+      esContent.style.display = 'block';
+      toggleBtn.innerHTML = '🇬🇧 Ver en Inglés';
+      currentLang = 'es';
+    } else {
+      enContent.style.display = 'block';
+      esContent.style.display = 'none';
+      toggleBtn.innerHTML = '🇪🇸 Traducir a Español';
+      currentLang = 'en';
+    }
+  });
+</script>
+
+</body>
+</html>
